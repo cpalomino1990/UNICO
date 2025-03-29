@@ -1,5 +1,5 @@
-const cursorManito = "http://127.0.0.1:5501/public/03.svg";
-const cursorGrande = "http://127.0.0.1:5501/public/01.svg"
+const cursorManito = "https://merry-palmier-ba5f3e.netlify.app//public/03.svg";
+const cursorGrande = "https://merry-palmier-ba5f3e.netlify.app//public/01.svg"
 
 
 export function toggleLargeCursor() {
