@@ -1,0 +1,58 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right,
+.swiper-slide-shadow-top,
+.swiper-slide-shadow-bottom {
+  display: none !important;
+}
+
+.circle {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.35s ease-in-out;
+}
+
+.circle::before {
+  content: "";
+  position: absolute;
+  background: white;
+  border: 3px solid var(--primaryColor);
+  left: calc(50% - 10px);
+  top: calc(50% - 10px);
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  z-index: 9999 !important;
+  transition: all 0.35s ease-in-out;
+  animation: spinnerRotate 4s linear infinite;
+  transform: rotate(0deg) translateY(-40px);
+}
+
+@keyframes spinnerRotate {
+  0% {
+    -webkit-transform: rotate(0deg) translateY(-40px);
+    transform: rotate(0deg) translateY(-40px);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg) translateY(-40px);
+    transform: rotate(360deg) translateY(-40px);
+  }
+}

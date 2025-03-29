@@ -1,0 +1,219 @@
+/*---------------------------> Inicio <--------------------------------*/
+
+/* Botón principal del widget */
+:root {
+  --primaryColor: #1e67e7;
+  --secondaryColor: #74c5f2;
+  --terciaryColor: #e40bf1;
+}
+
+#accessibility-button {
+  position: fixed;
+  bottom: 18px;
+  right: 20px;
+  /* background: radial-gradient(circle, #ff0000 0%, #00ff00 25%, #0000ff 50%, #ffff00 100%);-+ */
+  /* background: linear-gradient(
+    180deg,
+    #1e67e7 6.06%,
+    #e40bf1 48.37%,
+    #74c5f2 93.32%
+  ); */
+  /* background: conic-gradient(
+    var(--primaryColor) 0%,
+    var(--terciaryColor) 0%,
+    transparent 0%
+  ); */
+  background-color: transparent;
+  border: 5px solid var(--primaryColor);
+  border-radius: 50%;
+  width: 85px;
+  height: 85px;
+  cursor: pointer;
+  padding: 0;
+}
+
+#accessibility-button .line {
+  width: 70px;
+  height: 70px;
+  border: 3px solid white;
+  background: transparent;
+  border-radius: 50%;
+}
+
+#accessibility-button .line .internal {
+  width: 100%;
+  height: 100%;
+  background: var(--primaryColor);
+  border-radius: 50%;
+  /* overflow: hidden; */
+}
+
+.hit-the-floor {
+  color: #fff;
+  font-size: 12em;
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+.hit-the-floor {
+  text-align: center;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Menú de accesibilidad */
+#accessibility-menu {
+  z-index: 16;
+  margin-top: 10px;
+  padding: 10px;
+  width: 25%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #d3d3d3;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Botones dentro del menú */
+#accessibility-menu button {
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  padding: 15px;
+  margin: 15px 0;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%; /* Para que ocupen toda la celda */
+  text-align: center;
+}
+
+.toggle-button.active {
+  background-color: #a7e4fc !important; /* Color cuando está activo */
+  color: black !important;
+  border: 2px solid #6ea8ff !important;
+}
+
+#accessibility-menu button:hover {
+  background-color: #04c4d9;
+}
+
+/* Botón de cierre del menú */
+.close-btn {
+  color: rgb(26, 57, 197);
+}
+
+.close-btn:hover {
+  background-color: #c9c5c5;
+}
+
+/* Modo oscuro */
+.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.dark-mode button {
+  background-color: #333;
+  color: white;
+}
+
+/* Alto contraste */
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast h4,
+.high-contrast h5,
+.high-contrast h6 {
+  color: rgb(255, 0, 0);
+}
+
+.high-contrast div {
+  color: black;
+}
+
+.high-contrast p {
+  font-size: 1.2em;
+}
+
+.high-contrast button:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);
+}
+
+/* Barra de lectura */
+.reading-bar {
+  position: fixed;
+  width: 500px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.959);
+  pointer-events: none;
+  z-index: 9999;
+  border-top: 2px solid rgb(208, 255, 0);
+  border-bottom: 2px solid rgb(0, 255, 64);
+}
+
+/* Detener animaciones */
+.none-animation * {
+  animation: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+}
+
+/* Subrayar enlaces */
+a {
+  text-decoration: underline;
+  color: blue;
+}
+
+a:hover {
+  text-decoration: none;
+  color: darkblue;
+}
+
+/*{barra para apoyo de lectura  }*/
+.reading-bar {
+  position: absolute;
+  left: 50%;
+  width: 30%;
+  height: 7px;
+  background: rgba(0, 0, 0, 0.774);
+  pointer-events: none;
+  z-index: 9999;
+  border-top: 2px solid rgb(255, 115, 0);
+  border-bottom: 2px solid rgb(0, 255, 64);
+  border-radius: 100px;
+}
+
+.center-element {
+  
+  position: absolute;
+  font-size: 38px;
+  color:rgba(0, 0, 0, 0.699);
+  pointer-events: none;
+  z-index: 10000;
+  top: -20px;
+}
+
+.highlight {
+  background-color: rgb(26, 26, 21);
+  color: rgb(208, 255, 0);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
