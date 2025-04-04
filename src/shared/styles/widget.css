@@ -8,6 +8,7 @@
 }
 
 #accessibility-button {
+  z-index: 9999;
   position: fixed;
   bottom: 18px;
   right: 20px;
