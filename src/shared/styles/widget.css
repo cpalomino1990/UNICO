@@ -9,7 +9,7 @@
 
 #accessibility-button {
   z-index: 9999;
-  position: fixed;
+  position: fixed; 
   bottom: 18px;
   right: 20px;
   background-color: transparent;
