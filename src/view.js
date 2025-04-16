@@ -204,7 +204,7 @@ const views = {
 
   "view-color-blindness": createCategoryView(
     "color-blindness",
-    // [createButton("daltonismo-protanopia", "", initDaltonismControl)],
+    [createButton("daltonismo-protanopia", "", initDaltonismControl)],
     "view-categories"
   ),
 
