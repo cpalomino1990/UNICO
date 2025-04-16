@@ -28,8 +28,8 @@ export function initEyeCursorControl() {
     const cursor = document.createElement("div");
     cursor.id = "eye-cursor";
     cursor.style.position = "absolute";
-    cursor.style.width = "25px";
-    cursor.style.height = "25px";
+    cursor.style.width = "15px";
+    cursor.style.height = "15px";
     cursor.style.borderRadius = "50%";
     cursor.style.backgroundColor = "blue";
     cursor.style.zIndex = 9999;
