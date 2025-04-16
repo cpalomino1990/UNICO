@@ -30,12 +30,12 @@ export function initEyeCursorControl() {
     const cursor = document.createElement("div");
     cursor.id = "eye-cursor";
     cursor.style.position = "absolute";
-    cursor.style.width = "25px";
-    cursor.style.height = "25px";
+    cursor.style.width = "15px";
+    cursor.style.height = "15px";
     cursor.style.borderRadius = "50%";
     cursor.style.backgroundColor = "blue";
     cursor.style.zIndex = 9999;
-    cursor.style.pointerEvents = "none";
+    // cursor.style.pointerEvents = "none";
     document.body.appendChild(cursor);
 
     let lastX = 0;
@@ -64,44 +64,25 @@ export function initEyeCursorControl() {
       if (results.multiFaceLandmarks.length > 0) {
         const landmarks = results.multiFaceLandmarks[0];
         const iris = landmarks[468];
-    
+
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
-    
+
         const rawX = (1 - iris.x) * window.innerWidth;
         const rawY = iris.y * window.innerHeight;
-    
-        const offsetX = (rawX - centerX) * 4.0; // Amplificación fija
-        const offsetY = (rawY - centerY) * 4.0;
-    
+
+        const offsetX = (rawX - centerX) * amplification;
+        const offsetY = (rawY - centerY) * amplification;
+
         const amplifiedX = centerX + offsetX;
         const amplifiedY = centerY + offsetY;
-    
+
         smoothMove(amplifiedX, amplifiedY);
-    
-        // Detectar si el cursor está sobre un botón o enlace
-        const hoveredElement = document.elementFromPoint(amplifiedX, amplifiedY);
-    
-        if (hoveredElement && (
-          hoveredElement.tagName === "BUTTON" ||
-          hoveredElement.tagName === "A" ||
-          hoveredElement.getAttribute("role") === "button" ||
-          hoveredElement.hasAttribute("tabindex")
-        )) {
-          cursor.style.backgroundColor = "lime"; // Cambia color del cursor
-          cursor.style.transform = "scale(1.5)";  // Efecto visual opcional
-          hoveredElement.classList.add("eye-hovered"); // Clase temporal
-        } else {
-          cursor.style.backgroundColor = "red";
-          cursor.style.transform = "scale(1)";
-        }
-    
-        // Clic simulado con ojos cerrados
+
         const leftEAR = getEAR(landmarks, 159, 145);
         const rightEAR = getEAR(landmarks, 386, 374);
-    
         const eyesClosed = leftEAR < EYE_CLOSED_THRESHOLD && rightEAR < EYE_CLOSED_THRESHOLD;
-    
+
         if (eyesClosed) {
           if (!eyeClosedStartTime) {
             eyeClosedStartTime = Date.now();
@@ -114,7 +95,6 @@ export function initEyeCursorControl() {
         }
       }
     });
-    
 
     const camera = new window.Camera(videoElement, {
       onFrame: async () => {
@@ -143,7 +123,7 @@ function getEAR(landmarks, topIndex, bottomIndex) {
 function simulateClickAtCursor(x, y) {
   const el = document.elementFromPoint(x, y);
   if (el) {
-    console.log(" Click simulado en:", el);
+    console.log("👁️ Click simulado en:", el);
     el.click();
   }
 }
