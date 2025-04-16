@@ -4,12 +4,10 @@
 :root {
   --primaryColor: #1e67e7;
   --secondaryColor: #74c5f2;
-  --terciaryColor: #e40bf1;
 }
 
 #accessibility-button {
-  z-index: 9999;
-  position: fixed; 
+  position: fixed;
   bottom: 18px;
   right: 20px;
   background-color: transparent;
@@ -37,42 +35,33 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* Menú de accesibilidad */
 #accessibility-menu {
-  z-index: 16;
-  margin-top: 10px;
-  padding: 10px;
-  width: 25%;
-  height: 100vh;
   position: fixed;
   top: 0;
   right: 0;
-  background-color: #d3d3d3;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-
+  z-index: 16;
+  width: 500px;
+  max-width: 100%;
+  height: 100%;
+  border-radius: 20px;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
+  /* background: #fff; */
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  border: 1px solid #ffffff1a;
+  background: #e1eaf869;
+  box-shadow: 0px 0px 20px 10px #00000059;
 }
 
-/* Botones dentro del menú */
-#accessibility-menu button {
-  display: block;
-  width: 100%;
-  font-size: 20px;
-  padding: 15px;
-  margin: 15px 0;
-  background-color: #ffffff;
-  color: #000000;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  width: 100%; /* Para que ocupen toda la celda */
-  text-align: center;
+#accessibility-main-menu {
+  padding: 10px;
+  height: 100%;
 }
 
 .toggle-button.active {
@@ -82,7 +71,7 @@ body {
 }
 
 #accessibility-menu button:hover {
-  background-color: #04c4d9;
+  /* background-color: #04c4d9; */
 }
 
 /* Botón de cierre del menú */
@@ -188,4 +177,21 @@ a:hover {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Scroll personalizado */
+.accessibility-custom-scroll::-webkit-scrollbar {
+  width: 7px;
+  padding: 20px 0;
+}
+.accessibility-custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+.accessibility-custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--primaryColor);
+  border-radius: 10px;
+}
+.accessibility-custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--primaryColor, 50%);
 }
