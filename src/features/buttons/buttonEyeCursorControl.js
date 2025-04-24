@@ -75,8 +75,8 @@ export function initEyeCursorControl() {
     document.body.appendChild(videoElement);
 
     // Constantes de suavizado
-    const NORMAL_SMOOTHING = 0.02;  
-    const HOVER_SMOOTHING  = 0.001;  
+    const NORMAL_SMOOTHING = 0.05;  
+    const HOVER_SMOOTHING  = 0.01;  
 
     // Cursor ocular
     const cursor = document.createElement("div");
