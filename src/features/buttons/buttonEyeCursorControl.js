@@ -160,9 +160,9 @@ export function initEyeCursorControl() {
     const EYE_CLOSED_THRESHOLD = 0.23;
     const EYE_CLOSED_DURATION = 2000; // ms
 
-    const AMPLIFICATION_X = 30;
-    const AMPLIFICATION_Y_UP = 30;
-    const AMPLIFICATION_Y_DOWN = 30;
+    const AMPLIFICATION_X = 35;
+    const AMPLIFICATION_Y_UP = 35;
+    const AMPLIFICATION_Y_DOWN = 35;
     const SCROLL_MARGIN = 11;
     const SCROLL_SPEED = 5;
 
