@@ -41,12 +41,12 @@ body {
 /* Menú de accesibilidad */
 #accessibility-menu {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   z-index: 16;
   width: 500px;
   max-width: 100%;
-  height: 100%;
+  height: calc(100% - 20px);
   border-radius: 20px;
   flex-direction: column;
   align-items: center;

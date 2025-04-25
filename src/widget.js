@@ -78,20 +78,47 @@ export function updateCategoryButtons() {
   // Definición de categorías y botones asociados
   const categories = {
     "btn-visual": [
-      "highlight-Important",
-      "highlight-colors",
-      "space-Text",
-      "highlight-links",
-      "toggle-animations",
+      // "highlight-Important", 
+      "outline-mode",
+      "space-Text", 
+      "highlight-links", 
+      "toggle-animations", 
       "toggle-reading-bar",
-      "read-text-aloud",
-      "test-Size",
-      "toggle-Zoon",
+      "read-text-aloud", 
+      "test-Size", 
+      "toggle-Zoon", 
       "cursor-style",
-      "toggle-font",
-    ],
+      "toggle-font"
+    ], 
+    
+    "btn-total-blindness": [
+      "daltonismo-protanopia",
+      "focus-frame"
+      
+    ], 
 
-    "btn-total-blindness": ["daltonismo-protanopia"],
+    "btn-total-blindness": [
+    "read-read-speed",
+    "create-volume-control",
+    "read-text-aloud",
+    "selective-contrast"
+    ],
+    "btn-aspergers": [
+      "Guided-Reading",
+      "toggle-animationss",
+      "toggle-Disléxica",
+      "toggle-animations",
+      "toggle-mute",
+    ],
+    "btn-hyperActivity": [
+      "toggle-Reading-Mask",
+      "eyes-cursor"
+      
+    ],
+    "btn-epilepsy": [
+      "control-scroll",
+      "low-contrast",
+    ]
   };
 
   // Iterar sobre cada categoría para actualizar los botones dentro de ella

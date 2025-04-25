@@ -26,8 +26,8 @@
 
 #accessibility-main {
   background: #ffffffda;
-  overflow: auto;
-  padding: 20px;
+  overflow: hidden;
+  padding: 10px;
   border: 1px solid #dee2e6;
   border-radius: 20px;
   height: 100%;

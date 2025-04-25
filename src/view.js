@@ -1,6 +1,15 @@
 import { FontsizeChange } from "./features/buttons/buttonChangeTextSize.js";
 import { toggleLargeCursor } from "./features/buttons/buttonCursorSatyle.js";
-import { activateProtanopia } from "./features/buttons/buttondaltonismo.js";
+import {
+   activateAchromatomaly,
+   activateAchromatopsia, 
+   activateDeuteranomaly, 
+   activateDeuteranopia, 
+   activateProtanomaly, 
+   activateProtanopia, 
+   activateTritanomaly,
+    activateTritanopia,
+      } from "./features/buttons/buttondaltonismo.js";
 import { toggleHighlightColors } from "./features/buttons/buttonhighlightColors.js";
 import { toggleHighlightImportant } from "./features/buttons/buttonhighlightimportant.js";
 import { highlightLinks } from "./features/buttons/buttonhighlightLinks.js";
@@ -17,7 +26,19 @@ import { createButton, createCategoryView } from "./widget.js";
 import { switchView } from "./widget.js";
 import { createResetButton } from "./widget.js";
 import "./shared/styles/views.css";
+import { toggleOutlineMode } from "./features/buttons/buttonOutlineMode.js";
+import { toggleSelectiveContrast } from "./features/buttons/buttonSelectiveContrast.js";
+import { toggleReadingMask } from "./features/buttons/buttonReadingMask.js";
+import { toggleSimplifiedText } from "./features/buttons/buttonSimplifiedText.js";
+import { preventAbruptScroll } from "./features/buttons/buttonScollControl.js";
+import { toggleLowContrast } from "./features/buttons/buttontoggleLowContrast.js";
+import { toggleWordByWordReading } from "./features/buttons/buttonGuidedReading.js";
+import { setGlobalMediaVolumeToZero } from "./features/buttons/buttonToggleGlobalMute.js";
 import { initEyeCursorControl } from "./features/buttons/buttonEyeCursorControl.js";
+import{toggleReadSpeed} from "./features/buttons/buttonReadingSpeed.js";
+import { toggleFocusFrame } from "./features/buttons/buttonFocusFrame.js";
+import { toggleDyslexiaFont } from "./features/buttons/buttonDyslexiaFont.js";
+import { createVolumeControlButton } from "./features/buttons/buttonVolumeControlButton.js";
 
 export function initialView() {
   const bannerUser = createBannerUser();
@@ -179,13 +200,18 @@ export function createCategoriesView5() {
   return categoriesView5;
 }
 
-// Crear vistas para cada categoría con los botones correspondientes
-const views = {
-  "view-visual": createCategoryView(
-    "Visual",
-    [
+
+  //********************************************************************/
+   // Crear vistas para cada categoría con los botones correspondientes  /
+  //********************************************************************/
+
+  // Vista de Perfil para trastornos visuales//
+
+  const views = {
+    "view-visual": createCategoryView("visual", [
+      createButton("outline-mode", "Modo de Resaltado", toggleOutlineMode, ),
       createButton("highlight-Important", "Resaltar Texto", toggleHighlightImportant),
-      createButton("toggle-Zoon", "Zoom", toggleTextMagnifier),
+      createButton("toggle-Zoon", "Lupa", toggleTextMagnifier),
       createButton("test-Size", "Aumentar Texto", FontsizeChange),
       createButton("space-Text", "Aumentar Espaciado", toggleLetterSpacing),
       createButton("highlight-colors", "Resaltar Colores", toggleHighlightColors),
@@ -193,31 +219,100 @@ const views = {
       createButton("highlight-links", "Resaltar Enlaces", highlightLinks),
       createButton("toggle-animations", "Detener Animaciones", toggleAnimations),
       createButton("toggle-reading-bar", "Activar Barra de Lectura", toggleReadingBar),
-      createButton("cursor-style", "Cursor Grande", toggleLargeCursor, true),
-      createButton("toggle-font", "Cambiar Fuente", toggleFontStyle),
-      createButton("eye-cursor", "Cursor Ocular", initEyeCursorControl),
-    ],
-    "view-categories"
-  ),
+      createButton("cursor-style", "Cursor Grande", toggleLargeCursor, ),
+      createButton("toggle-font", "Fuente Legible", toggleFontStyle),
+    ], "view-categories"),
 
-  "view-total-blindness": createCategoryView("total-blindness", [], "view-categories"),
+    // Vista de Perfil para ceguera total//
 
-  "view-color-blindness": createCategoryView(
-    "color-blindness",
-    [createButton("daltonismo-protanopia", "", activateProtanopia)],
-    "view-categories"
-  ),
+    "view-total-blindness": createCategoryView("total-blindness", [
+      createButton("read-read-speed", "Velocidad de Lectura", toggleReadSpeed),
+      createButton("create-volume-control", "Control de Volumen", createVolumeControlButton),
+      createButton("read-text-aloud", "Leer en voz alta", toggleReadOnHover),
+    ], "view-categories"),
 
-  "view-color-perception": createCategoryView("color-perception", [], "view-categories"),
-};
+// Vista de Perfil para daltonismo//
 
-// Vistas adicionales de categorías relacionadas con la cognición o neurología
-const views1 = {
-  "view-asperger": createCategoryView("Asperger", [], "view-categories1"),
-  "view-s-down": createCategoryView("s-down", [], "view-categories1"),
-  "view-hiperactividad": createCategoryView("hiperactividad", [], "view-categories1"),
-  "view-color-perception": createCategoryView("color-perception", [], "view-categories1"),
-};
+    "view-color-blindness": createCategoryView("color-blindness", [
+      createButton("daltonismo-protanopia", "Protanopia", activateProtanopia,),
+      createButton("daltonismo-deuteranopia", "Deuteranopia", activateDeuteranopia,),
+      createButton("daltonismo-tritanopia", "Tritanopia", activateTritanopia,), 
+      createButton("daltonismo-protanomaly", "Protanomalia", activateProtanomaly,),
+      createButton("daltonismo-deuteranomaly", "Deuteranomalia", activateDeuteranomaly,),
+      createButton("daltonismo-tritanomaly", "Tritanomalia", activateTritanomaly,),
+      createButton("daltonismo-achromatomaly", "Acromatomalia", activateAchromatomaly,),
+      createButton("daltonismo-achromatopsia", "Acromatopsia", activateAchromatopsia,),
+      createButton("focus-frame", "Marco de Enfoque", toggleFocusFrame, ),
+      createButton("outline-mode", "Modo de Resaltado", toggleOutlineMode, ),
+      createButton("selective-contrast", "Contraste Selectivo", toggleSelectiveContrast, ),
+      ], "view-categories"),
+   
+  };
+
+
+
+  //********************************************************************************/
+  // Vistas adicionales de categorías relacionadas con la cognición o neurología  */
+ //*******************************************************************************/
+
+  // vista de Perfil Asperger //
+
+  const views1 = {
+    "view-asperger": createCategoryView("asperger", [
+      createButton("Guided-Reading", "Lectura Pausada", toggleWordByWordReading, ),
+      createButton("toggle-animationss", "Modo Concentracion", toggleSimplifiedText),
+      createButton("toggle-animations", "Detener Animaciones", toggleAnimations),
+      createButton("toggle-mute", "Silenciar Sonido", setGlobalMediaVolumeToZero),
+      
+    ], "view-categories1"),
+
+   // vista de Perfil Sindrome de Dawn //
+
+    "view-down-syndrom": createCategoryView("down-syndrome", [
+      createButton("cursor-style", "Cursor Grande", toggleLargeCursor),
+      createButton("test-Size", "Aumentar Texto", FontsizeChange),
+      createButton("space-Text", "Aumentar Espaciado", toggleLetterSpacing),
+      createButton("toggle-animations", "Detener Animaciones", toggleAnimations),
+      createButton("read-text-aloud", "Leer en voz alta", toggleReadOnHover),
+    
+   ], "view-categories1"),
+     
+   // vista de Perfil Dislexia //
+
+     "view-dyslexia": createCategoryView("dyslexia", [
+      createButton("toggle-Reading-Mask", "Máscara de Lectura", toggleReadingMask),
+      createButton("toggle-Disléxica", "Fuente Disléxica", toggleDyslexiaFont),
+      createButton("space-Text", "Aumentar Espaciado", toggleLetterSpacing),
+      createButton("test-Size", "Aumentar Texto", FontsizeChange),
+      createButton("read-text-aloud", "Leer en voz alta", toggleReadOnHover),
+      createButton("toggle-animations", "Detener Animaciones", toggleAnimations),
+     ], "view-categories1"),
+
+
+    // vista de Perfil Epilexia //
+
+     "view-dysgraphia": createCategoryView("dysgraphia", [
+      createButton("toggle-Reading-Mask", "Máscara de Lectura", toggleReadingMask),
+      createButton("toggle-animations", "Detener Animaciones", toggleAnimations),  
+      createButton("toggle-animationss", "Modo Concentracion", toggleSimplifiedText), 
+      createButton("toggle-font", "Fuente Legible", toggleFontStyle), 
+      createButton("outline-mode", "Modo de Resaltado", toggleOutlineMode),
+      createButton("read-text-aloud", "Leer en voz alta", toggleReadOnHover),
+      createButton("control-scroll", "Control Desplazamiento", preventAbruptScroll),
+      createButton("low-contrast", "Contraste Bajo", toggleLowContrast),
+     
+      
+     ], "view-categories1"),
+
+        // vista de Perfil Hiperactividad //
+
+    "view-view-hyperactivity": createCategoryView("hyperActivity", [
+      createButton("toggle-Reading-Mask", "Máscara de Lectura", toggleReadingMask),
+      createButton("toggle-animations", "Detener Animaciones", toggleAnimations),
+      createButton("eyes-cursor", "Control si Manos", initEyeCursorControl),
+     ], "view-categories1"),
+
+  };
 
 const views2 = {
   "view-sordera": createCategoryView("sordera", [], "view-categories2"),

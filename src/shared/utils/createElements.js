@@ -1,6 +1,6 @@
 import { createButton, switchView } from "../../widget";
 import { DynamicIcon } from "../assets/icons/generals/dinamicIcons";
-import { isMobile } from "../constants/enviroments";
+import { host, isMobile } from "../constants/enviroments";
 
 export function createButtonCard(props = { id, text, view, icon }) {
   // Creamos el boton de tipo card
@@ -92,13 +92,11 @@ export function createBannerUser() {
   card.id = "accessibility-banner-user";
   card.innerHTML = `
     <div class="accessibility-banner-user-top">
-      <p class="accessibility-banner-user-top-title">
-        Capacidades diversas
-      </p>  
-      
-      <p class="accessibility-banner-user-top-date">
-        Lunes 17 De Noviembre 2025
-      </p>
+      <div class="accessibility-banner-user-top-image">
+        <div class="accessibility-banner-user-top-image-internal">
+          <img src="https://cdn.pixabay.com/photo/2020/12/08/19/12/woman-5815354_640.jpg" alt="user image">
+        </div>
+      </div>
     </div>
     <p class="accessibility-banner-user-title">
       Bienvenid@
@@ -107,6 +105,8 @@ export function createBannerUser() {
       Te invitamos a registrarte para tener una experiencia personalizada
     </div>
   `;
+  // Imagen del usuario despúes del inicio de sesion
+  // <img src="https://cdn.pixabay.com/photo/2020/12/08/19/12/woman-5815354_640.jpg" alt="user image">
 
   return card; // Devolver el botón creado
 }
