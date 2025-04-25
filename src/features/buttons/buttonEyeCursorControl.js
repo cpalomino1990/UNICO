@@ -1,26 +1,21 @@
-
-
+// Inicia el control del cursor ocular
 export function initEyeCursorControl() {
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (window.eyeCursorActive) return;
   window.eyeCursorActive = true;
 
-  // Overlay de carga
   const loadingOverlay = document.createElement("div");
   loadingOverlay.id = "eye-loading-overlay";
-  Object.assign(loadingOverlay.style, {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 100000,
-  });
+  loadingOverlay.style.position = "fixed";
+  loadingOverlay.style.top = 0;
+  loadingOverlay.style.left = 0;
+  loadingOverlay.style.width = "100vw";
+  loadingOverlay.style.height = "100vh";
+  loadingOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+  loadingOverlay.style.display = "flex";
+  loadingOverlay.style.flexDirection = "column";
+  loadingOverlay.style.justifyContent = "center";
+  loadingOverlay.style.alignItems = "center";
+  loadingOverlay.style.zIndex = 100000;
   loadingOverlay.innerHTML = `
     <div style="color: white; font-size: 1.5rem; margin-bottom: 20px;">Cargando control ocular...</div>
     <div style="
@@ -29,7 +24,7 @@ export function initEyeCursorControl() {
       border: 5px solid #fff;
       border-top: 5px solid transparent;
       border-radius: 50%;
-      animation: spin 10s linear infinite;
+      animation: spin 1s linear infinite;
     "></div>
   `;
 
@@ -44,41 +39,30 @@ export function initEyeCursorControl() {
     `;
     document.head.appendChild(loadingStyle);
   }
+
   document.body.appendChild(loadingOverlay);
 
-  // Scripts requeridos
   const scripts = [
     "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js",
     "https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js",
     "https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
   ];
-  const loadNextScript = src => new Promise(resolve => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => resolve();
-    script.onerror = () => console.error(`Error al cargar script: ${src}`);
-    document.head.appendChild(script);
-  });
+
+  const loadNextScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve();
+      script.onerror = () => console.error(`Error al cargar script: ${src}`);
+      document.head.appendChild(script);
+    });
+  };
 
   Promise.all(scripts.map(loadNextScript)).then(() => {
-    // Video para calibración (visible)
     const videoElement = document.createElement("video");
-    Object.assign(videoElement.style, {
-      position: "fixed",
-      bottom: "10px",
-      right: "10px",
-      width: "160px",
-      height: "120px",
-      border: "2px solid #fff",
-      zIndex: 999999
-    });
+    videoElement.style.display = "none";
     document.body.appendChild(videoElement);
 
-    // Constantes de suavizado
-    const NORMAL_SMOOTHING = 0.05;  
-    const HOVER_SMOOTHING  = 0.01;  
-
-    // Cursor ocular
     const cursor = document.createElement("div");
     cursor.id = "eye-cursor";
     Object.assign(cursor.style, {
@@ -86,44 +70,33 @@ export function initEyeCursorControl() {
       width: "15px",
       height: "15px",
       borderRadius: "50%",
-      backgroundColor: "red",
-      zIndex: 9999989,
+      backgroundColor: "magenta",
+      zIndex: 9999,
       pointerEvents: "none",
       opacity: "0",
       transform: "scale(0)",
-      transition: "opacity 0.5s ease, transform 0.5s ease, left 0.3s ease-out, top 0.3s ease-out"
+      transition: "opacity 0.5s ease, transform 0.5s ease"
     });
     document.body.appendChild(cursor);
+
     requestAnimationFrame(() => {
       cursor.style.opacity = "1";
       cursor.style.transform = "scale(1.5)";
       setTimeout(() => cursor.style.transform = "scale(1)", 500);
     });
 
-    // Styles para hover
     if (!document.getElementById("eye-hover-style")) {
       const style = document.createElement("style");
       style.id = "eye-hover-style";
       style.textContent = `
-      .eye-hovered {
-        /* Borde grueso y sólido de color rojo */
-        outline: 4px solid #FF0000 !important;
-        /* Fondo semitransparente para destacar */
-        background-color: rgba(255, 0, 0, 0.2) !important;
-        /* Sombra intensa alrededor */
-        box-shadow: 0 0 8px 4px rgba(255, 0, 0, 0.5) !important;
-        /* Transiciones suaves */
-        transition: 
-          outline 0.2s ease, 
-          background-color 0.2s ease, 
-          box-shadow 0.2s ease;
-      }
-    `;
-    
+        .eye-hovered {
+          outline: 2px dashed #00ff00 !important;
+          transition: outline 0.2s ease;
+        }
+      `;
       document.head.appendChild(style);
     }
 
-    // Elemento de progreso de parpadeo
     const progress = document.createElement("div");
     progress.id = "eye-progress";
     Object.assign(progress.style, {
@@ -138,152 +111,136 @@ export function initEyeCursorControl() {
     });
     document.body.appendChild(progress);
 
-    // Target de calibración (centro)
-    const calibTarget = document.createElement("div");
-    calibTarget.id = "eye-calibration-target";
-    Object.assign(calibTarget.style, {
-      position: "fixed",
-      width: "20px",
-      height: "20px",
-      border: "2px solid yellow",
-      borderRadius: "50%",
-      left: "50%",
-      top: "50%",
-      transform: "translate(-50%, -50%)",
-      zIndex: 9999999
-    });
-    document.body.appendChild(calibTarget);
-
-    let lastX = 0, lastY = 0;
-    let lastClickTime = 0;
-    let eyeClosedStartTime = null;
-    const EYE_CLOSED_THRESHOLD = 0.23;
-    const EYE_CLOSED_DURATION = 2000; // ms
-
-    const AMPLIFICATION_X = 35;
-    const AMPLIFICATION_Y_UP = 35;
-    const AMPLIFICATION_Y_DOWN = 35;
-    const SCROLL_MARGIN = 11;
-    const SCROLL_SPEED = 5;
-
-    const smoothMove = (x, y, speed = NORMAL_SMOOTHING) => {
-      const dx = x - lastX;
-      const dy = y - lastY;
-      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
-      lastX += dx * speed;
-      lastY += dy * speed;
-      cursor.style.left = `${lastX}px`;
-      cursor.style.top  = `${lastY}px`;
-      progress.style.left = `${lastX - 20}px`;
-      progress.style.top  = `${lastY - 20}px`;
-    };
-
-    function getEAR(landmarks, topIndex, bottomIndex) {
-      const top = landmarks[topIndex];
-      const bottom = landmarks[bottomIndex];
-      return Math.abs(top.y - bottom.y);
-    }
-
-    function simulateClickAtCursor(x, y) {
-      const now = Date.now();
-      if (now - lastClickTime < 1000) return;
-      lastClickTime = now;
-      const el = document.elementFromPoint(x, y);
-      if (el) {
-        el.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
-      }
-    }
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight / 2;
+    let lastHoveredElement = null;
 
     const faceMesh = new window.FaceMesh({
-      locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
     });
-    faceMesh.setOptions({ maxNumFaces: 1, refineLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
 
- // Añade este helper arriba, fuera de onResults:
-function isInteractiveElement(el) {
-  return el &&
-    (["BUTTON", "A"].includes(el.tagName) ||
-     el.getAttribute("role") === "button" ||
-     el.hasAttribute("tabindex"));
-}
+    faceMesh.setOptions({
+      maxNumFaces: 1,
+      refineLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
 
+    const scrollMargin = 10;
+    const scrollSpeed = 20;
 
-faceMesh.onResults(results => {
-  const lm = results.multiFaceLandmarks?.[0];
-  if (!lm) return;
+    faceMesh.onResults((results) => {
+      if (results.multiFaceLandmarks.length > 0) {
+        const landmarks = results.multiFaceLandmarks[0];
+        const iris = landmarks[468];
 
-  //  Calcular target de mirada (ax, ay)
-  const iris = lm[468];
-  const cx = window.innerWidth  / 2;
-  const cy = window.innerHeight / 2;
-  const rawX = (1 - iris.x) * window.innerWidth;
-  const rawY = iris.y * window.innerHeight;
-  const offX = (rawX - cx) * AMPLIFICATION_X;
-  const offY = (rawY - cy) * (rawY > cy ? AMPLIFICATION_Y_DOWN : AMPLIFICATION_Y_UP);
-  let ax = Math.max(0, Math.min(window.innerWidth  - 15, cx + offX));
-  let ay = Math.max(0, Math.min(window.innerHeight - 15, cy + offY));
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const rawX = (1 - iris.x) * window.innerWidth;
+        const rawY = iris.y * window.innerHeight;
 
-  //  Scroll automático si toca bordes
-  if (ay < SCROLL_MARGIN) window.scrollBy(0, -SCROLL_SPEED);
-  else if (ay > window.innerHeight - SCROLL_MARGIN) window.scrollBy(0, SCROLL_SPEED);
+        const amplification = 13;
+        const deltaX = rawX - centerX;
+        const deltaY = rawY - centerY;
+        const threshold = 1; // umbral para el movimiento del cursor
 
-  // 3. Detección previa para ajustar velocidad
-  const elAtRaw = document.elementFromPoint(ax, ay);
-  const isTargetInteractive = isInteractiveElement(elAtRaw);
-  const moveSpeed = isTargetInteractive ? HOVER_SMOOTHING : NORMAL_SMOOTHING;
+        const newX = Math.abs(deltaX) > threshold ? centerX + deltaX * amplification : lastX;
+        const newY = Math.abs(deltaY) > threshold ? centerY + deltaY * amplification : lastY;
 
-  // 4. Mover cursor (actualiza lastX/lastY y estilos left/top)
-  smoothMove(ax, ay, moveSpeed);
+        const SMOOTHING_FACTOR = 0.1;
+        lastX = lastX + (newX - lastX) * SMOOTHING_FACTOR;
+        lastY = lastY + (newY - lastY) * SMOOTHING_FACTOR;
 
-  // Detección EXACTA bajo el **centro** del cursor visible
-  const rectC = cursor.getBoundingClientRect();
-  const hoverX = rectC.left + rectC.width  / 2;
-  const hoverY = rectC.top  + rectC.height / 2;
+        const MARGIN = 8; // margen mínimo desde el borde
+        const clampedX = Math.max(MARGIN, Math.min(window.innerWidth - 15 - MARGIN, lastX));
+        const clampedY = Math.max(MARGIN, Math.min(window.innerHeight - 15 - MARGIN, lastY));
+        
+        cursor.style.left = `${clampedX}px`;
+        cursor.style.top = `${clampedY}px`;
 
-  //  Limpiar resaltados previos
-  document.querySelectorAll(".eye-hovered")
-    .forEach(el => el.classList.remove("eye-hovered"));
+        if (lastY < scrollMargin) {
+          window.scrollBy(0, -scrollSpeed);
+        } else if (lastY > window.innerHeight - scrollMargin) {
+          window.scrollBy(0, scrollSpeed);
+        }
 
-  const elHover = document.elementFromPoint(hoverX, hoverY);
-  if (isInteractiveElement(elHover)) {
-    // 7a. Resaltar elemento EXACTAMENTE bajo el punto
-    elHover.classList.add("eye-hovered");
-    // 7b. Cambiar estilo del cursor
-    cursor.style.backgroundColor = "lime";
-    cursor.style.transform       = "scale(1.5)";
-  } else {
-    // 8. Volver al estilo normal
-    cursor.style.backgroundColor = "red";
-    cursor.style.transform       = "scale(1)";
-  }
+        const hoveredElement = document.elementFromPoint(clampedX, clampedY);
 
-  // 9. Lógica de parpadeo (idéntica a la tuya)
-  const leftEAR  = getEAR(lm, 159, 145);
-  const rightEAR = getEAR(lm, 386, 374);
-  const closed   = leftEAR < EYE_CLOSED_THRESHOLD && rightEAR < EYE_CLOSED_THRESHOLD;
-  if (closed) {
-    if (!eyeClosedStartTime) eyeClosedStartTime = Date.now();
-    const elapsed = Date.now() - eyeClosedStartTime;
-    const ratio   = Math.min(elapsed / EYE_CLOSED_DURATION, 1);
-    progress.style.transform = `scale(${ratio})`;
-    if (elapsed >= EYE_CLOSED_DURATION) {
-      simulateClickAtCursor(lastX, lastY);
-      eyeClosedStartTime = null;
-      progress.style.transform = "scale(0)";
-    }
-  } else {
-    eyeClosedStartTime = null;
-    progress.style.transform = "scale(0)";
-  }
-});
+        document.querySelectorAll(".eye-hovered").forEach(el => el.classList.remove("eye-hovered"));
 
+        const isInteractive =
+          hoveredElement &&
+          (
+            hoveredElement.tagName === "BUTTON" ||
+            hoveredElement.tagName === "A" ||
+            hoveredElement.getAttribute("role") === "button" ||
+            hoveredElement.hasAttribute("tabindex")
+          );
+
+        if (isInteractive) {
+          cursor.style.backgroundColor = "lime";
+          cursor.style.transform = "scale(1.5)";
+          hoveredElement.classList.add("eye-hovered");
+        } else {
+          cursor.style.backgroundColor = "red";
+          cursor.style.transform = "scale(1)";
+        }
+
+        const leftEAR = getEAR(landmarks, 159, 145);
+        const rightEAR = getEAR(landmarks, 386, 374);
+        const eyesClosed = leftEAR < EYE_CLOSED_THRESHOLD && rightEAR < EYE_CLOSED_THRESHOLD;
+
+        if (eyesClosed) {
+          if (!eyeClosedStartTime) {
+            eyeClosedStartTime = Date.now();
+            lastHoveredElement = hoveredElement;
+          } else if (Date.now() - eyeClosedStartTime > EYE_CLOSED_DURATION && hoveredElement === lastHoveredElement) {
+            simulateClickAtCursor(clampedX, clampedY);
+            eyeClosedStartTime = null;
+            lastHoveredElement = null;
+          }
+        } else {
+          eyeClosedStartTime = null;
+          lastHoveredElement = null;
+        }
+      }
+    });
 
     const camera = new window.Camera(videoElement, {
-      onFrame: async () => await faceMesh.send({ image: videoElement }),
+      onFrame: async () => {
+        await faceMesh.send({ image: videoElement });
+      },
       width: 640,
       height: 480
     });
+
     camera.start();
     loadingOverlay.remove();
   });
+}
+
+let eyeClosedStartTime = null;
+const EYE_CLOSED_THRESHOLD = 0.23;
+const EYE_CLOSED_DURATION = 2000;
+
+function getEAR(landmarks, topIndex, bottomIndex) {
+  const top = landmarks[topIndex];
+  const bottom = landmarks[bottomIndex];
+  return Math.abs(top.y - bottom.y);
+}
+
+function simulateClickAtCursor(x, y) {
+  const clampedX = Math.max(0, Math.min(window.innerWidth - 1, x));
+  const clampedY = Math.max(0, Math.min(window.innerHeight - 1, y));
+
+  const el = document.elementFromPoint(clampedX, clampedY);
+  if (el) {
+    const evt = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window
+    });
+    el.dispatchEvent(evt);
+    console.log("Click simulado en:", el);
+  }
 }
