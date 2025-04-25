@@ -1,6 +1,6 @@
 import { FontsizeChange } from "./features/buttons/buttonChangeTextSize.js";
 import { toggleLargeCursor } from "./features/buttons/buttonCursorSatyle.js";
-import { initDaltonismControl } from "./features/buttons/buttondaltonismo.js";
+import { activateProtanopia } from "./features/buttons/buttondaltonismo.js";
 import { toggleHighlightColors } from "./features/buttons/buttonhighlightColors.js";
 import { toggleHighlightImportant } from "./features/buttons/buttonhighlightimportant.js";
 import { highlightLinks } from "./features/buttons/buttonhighlightLinks.js";
@@ -204,7 +204,7 @@ const views = {
 
   "view-color-blindness": createCategoryView(
     "color-blindness",
-    [createButton("daltonismo-protanopia", "", initDaltonismControl)],
+    [createButton("daltonismo-protanopia", "", activateProtanopia)],
     "view-categories"
   ),
 
