@@ -72,7 +72,7 @@ export function initEyeCursorControl() {
     const CURSOR_SIZE = 20;
     const MARGIN = 5;
     const scrollMargin = 10;
-    const scrollSpeed = 20;
+    const scrollSpeed = 40;
 
     // Crear cursor ocular
     const cursor = document.createElement("div");
