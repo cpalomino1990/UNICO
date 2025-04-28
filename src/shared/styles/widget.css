@@ -1,9 +1,15 @@
 /*---------------------------> Inicio <--------------------------------*/
+/* Fuente Nunito */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 /* Botón principal del widget */
 :root {
   --primaryColor: #1e67e7;
   --secondaryColor: #74c5f2;
+}
+
+* {
+  font-family: "Nunito", sans-serif;
 }
 
 #accessibility-button {

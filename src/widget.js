@@ -38,7 +38,7 @@ export function toggleMenu() {
 export function switchView(viewId) {
   document.querySelectorAll(".accessibility-view").forEach((element) => {
     element.classList.add("hidden");
-    element.setAttribute("aria-hidden", "true");
+    element.setAttribute("aria-hidden", "false");
   });
 
   const activeView = document.getElementById(viewId);
@@ -147,7 +147,7 @@ export function createCategoryView(categoryName, buttons, returnToView) {
   const div = document.createElement("div"); // Crear un contenedor div para la vista de la categoría
   div.id = `view-${categoryName.toLowerCase()}`; // Asignar un id único a la vista de la categoría
   div.classList.add("accessibility-view", "hidden"); // Agregar clases para ocultar la vista inicialmente
-  div.setAttribute("aria-hidden", "true"); // Asegurar la accesibilidad
+  div.setAttribute("aria-hidden", "false"); // Asegurar la accesibilidad
 
   // Crear un botón de "Volver" para regresar a la vista anterior
   const backButton = createButton("back-to-menu", "⬅ Volver", () => switchView(returnToView));
@@ -172,7 +172,7 @@ export async function initWidget(accountId) {
   const accessibilityMenu = document.createElement("div"); // Crear el menú de accesibilidad
   accessibilityMenu.id = "accessibility-menu"; // Asignar un id al menú
   accessibilityMenu.classList.add("hidden"); // Ocultar el menú inicialmente
-  accessibilityMenu.setAttribute("role", "dialog"); // Establecer el rol ARIA del menú
+  accessibilityMenu.setAttribute("role", "dialog",true); // Establecer el rol ARIA del menú
 
   const resetaAll = createButton(
     "reset-all",
@@ -198,7 +198,7 @@ export async function initWidget(accountId) {
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       accessibilityMenu.classList.add("hidden"); // Ocultar el menú
-      accessibilityMenu.setAttribute("aria-hidden", "true"); // Cambiar atributo ARIA para accesibilidad
+      accessibilityMenu.setAttribute("aria-hidden", "false"); // Cambiar atributo ARIA para accesibilidad
     }
   });
 }

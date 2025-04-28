@@ -12,19 +12,15 @@ export function toggleReadOnHover() {
   if (!isReading) {
     isReading = true;
     currentSpeed = 'normal';
-    readButton.textContent = "Leer normal";
     document.body.addEventListener("mouseover", startReading);
     document.body.addEventListener("mouseout", stopReading);
   } else if (currentSpeed === 'normal') {
     currentSpeed = 'fast';
-    readButton.textContent = "Leer rápido";
   } else if (currentSpeed === 'fast') {
     currentSpeed = 'slow';
-    readButton.textContent = "Leer lento";
   } else {
     isReading = false;
-    currentSpeed = 'normal';
-    readButton.textContent = "Leer en voz alta";
+    currentSpeed = 'normal'; 
     stopReading();
     document.body.removeEventListener("mouseover", startReading);
     document.body.removeEventListener("mouseout", stopReading);

@@ -66,11 +66,28 @@
   box-shadow: 4px 2px 16px 0px #5f9de77a;
   box-shadow: -4px -2px 16px 0px #ffffff;
   padding: 10px;
+  color: white;
 }
 
 .accessibility-circle-button img {
   width: 20px;
   height: 20px;
+}
+
+.accessibility-circle-button-sm {
+  width: 30px;
+  height: 30px;
+  background-color: var(--primaryColor);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border: 2px solid #ffffff4d;
+  box-shadow: 4px 2px 16px 0px #5f9de77a;
+  box-shadow: -4px -2px 16px 0px #ffffff;
+  padding: 10px;
+  color: white;
 }
 
 .accessibility-flag-button {

@@ -1,6 +1,8 @@
+import "../styles/fullLayout.css";
+import "../styles/views.css";
+import "../styles/elements.css";
 import { createButton, toggleMenu } from "../../widget";
 import { host } from "../constants/enviroments";
-import "../styles/fullLayout.css";
 import { ChangeTheme } from "../utils/actions";
 
 const header = () => {

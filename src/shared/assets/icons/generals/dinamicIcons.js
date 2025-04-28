@@ -19,6 +19,18 @@ export function DynamicIcon(props = { icon: "" }) {
             fill="currentColor"
           />
         </svg>
+      `;
+    case "right":
+      return `
+        <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.98112 12.6412L1.53713 7.44399L6.73438 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    case "bottom":
+      return `
+        <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.4249 1.51044L10.2186 9.97419L1.75488 1.76794" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
 
       `;
     default:

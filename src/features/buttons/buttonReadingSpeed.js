@@ -1,8 +1,6 @@
-
 //leer en voz alta//
 
-
-let currentSpeed = 'rapido'; // Declare currentSpeed globally
+let currentSpeed = "rapido"; // Declare currentSpeed globally
 let isReading = false;
 let utterance;
 
@@ -11,20 +9,16 @@ export function toggleReadSpeed() {
 
   if (!isReading) {
     isReading = true;
-    currentSpeed = 'rapido';
-    readButton.textContent = "Leer rápido";
+    currentSpeed = "rapido";
     document.body.addEventListener("mouseover", startReading);
     document.body.addEventListener("mouseout", stopReading);
-  } else if (currentSpeed === 'rapido') {
-    currentSpeed = 'fast';
-    readButton.textContent = "Leer rápido";
-  } else if (currentSpeed === 'fast') {
-    currentSpeed = 'slow';
-    readButton.textContent = "Leer lento";
+  } else if (currentSpeed === "rapido") {
+    currentSpeed = "fast";
+  } else if (currentSpeed === "fast") {
+    currentSpeed = "slow";
   } else {
     isReading = false;
-    currentSpeed = 'rapido';
-    readButton.textContent = "Leer rápido";
+    currentSpeed = "rapido";
     stopReading();
     document.body.removeEventListener("mouseover", startReading);
     document.body.removeEventListener("mouseout", stopReading);
@@ -34,7 +28,7 @@ export function toggleReadSpeed() {
 function startReading(event) {
   if (isReading && isValidElement(event.target)) {
     // Remueve resaltados previos
-    document.querySelectorAll(".highlighted").forEach(el => el.classList.remove("highlighted"));
+    document.querySelectorAll(".highlighted").forEach((el) => el.classList.remove("highlighted"));
 
     // Agrega la clase de resaltado al elemento actual
     event.target.classList.add("highlighted");
@@ -56,18 +50,17 @@ function startReading(event) {
 
 function stopReading() {
   speechSynthesis.cancel();
-  document.querySelectorAll(".highlighted").forEach(el => el.classList.remove("highlighted"));
+  document.querySelectorAll(".highlighted").forEach((el) => el.classList.remove("highlighted"));
 }
 
 function isValidElement(element) {
-  const validTags = ['P', 'H1', 'H2', 'H3', 'SPAN', 'BUTTON', 'A'];
+  const validTags = ["P", "H1", "H2", "H3", "SPAN", "BUTTON", "A"];
   return validTags.includes(element.tagName) && element.innerText.trim().length > 2;
 }
 
 function getSpeedValue() {
-  return currentSpeed === 'fast' ? 1.5 : currentSpeed === 'slow' ? 0.5 : 1;
+  return currentSpeed === "fast" ? 1.5 : currentSpeed === "slow" ? 0.5 : 1;
 }
-
 
 // Agregar estilos de resaltado dinámicamente
 const style = document.createElement("style");

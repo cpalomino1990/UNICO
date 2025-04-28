@@ -40,8 +40,8 @@ export function initEyeCursorControl() {
         100% { transform: scale(1); box-shadow: 0 0 10px rgba(138,43,226,0.6), 0 0 20px rgba(0,240,255,0.5); }
       }
       @keyframes pulseInteractive {
-        0% { transform: scale(1.6); box-shadow: 0 0 15px rgba(0,255,136,0.7), 0 0 30px rgba(0,212,255,0.6); }
-        50% { transform: scale(1.9); box-shadow: 0 0 25px rgba(0,255,136,0.8), 0 0 40px rgba(0,212,255,0.8); }
+        0% { transform: scale(1.2); box-shadow: 0 0 15px rgba(0,255,136,0.7), 0 0 30px rgba(0,212,255,0.6); }
+        50% { transform: scale(1.5); box-shadow: 0 0 25px rgba(0,255,136,0.8), 0 0 40px rgba(0,212,255,0.8); }
         100% { transform: scale(1.6); box-shadow: 0 0 15px rgba(0,255,136,0.7), 0 0 30px rgba(0,212,255,0.6); }
       }
     `;
