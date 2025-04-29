@@ -1,109 +1,94 @@
-// Importa funciones necesarias desde otros módulos
+// components/visualView.js
 import { switchView } from "../../widget";
 import { allButtons } from "../components/allButtons/allButtons";
 import { createCardProfile, createCardTitle } from "../utils/createElements";
+
 // Array para almacenar los perfiles activos
 const activeProfiles = [];
 
-// Función para activar o desactivar un perfil
+// Función para activar o desactivar un perfil y reconstruir botones
 const ToggleActiveProfiles = (id, title) => {
-  const element = document.getElementById(id); // Obtiene el elemento por ID
+  const element = document.getElementById(id);
   if (element) {
-    // Alterna la clase "active"
     element.classList.toggle("active");
-    // Muestra u oculta el check de accesibilidad
     const checkElement = element.querySelector(".accessibility-check");
     if (checkElement) {
       checkElement.style.display = checkElement.style.display === "none" ? "flex" : "none";
     }
-  } 
-
-  // Añade o elimina el ID del array de perfiles activos
-  const index = activeProfiles.findIndex((profile) => profile.id === id); // Busca el índice del perfil en el array
-  if (index !== -1) {
-    activeProfiles.splice(index, 1); // Si ya existe, lo elimina
-  } else {
-    activeProfiles.push({ id, title }); // Si no existe, lo agrega
   }
 
-  // Cambiar el titulo del perfil seleccionado
+  // Añade o elimina del array
+  const index = activeProfiles.findIndex((profile) => profile.id === id);
+  if (index !== -1) {
+    activeProfiles.splice(index, 1);
+  } else {
+    activeProfiles.push({ id, title });
+  }
+
+  // Actualiza texto del título según perfiles activos
   const elementTitle = document.querySelector(
     "#accessibility-title-profile-select .accessibility-title-card-content-left .accessibility-title-card-text"
   );
-  elementTitle.innerHTML = activeProfiles.length > 1 ? "Personalizado" : activeProfiles[0]?.title;
+  elementTitle.innerHTML = activeProfiles.length > 1 ? "Personalizado" : activeProfiles[0]?.title || "";
 
-  // Muestra u oculta la sección de botones adicionales según si hay perfiles activos
+  // Reconstruye el contenedor de botones de perfiles
   const contentButtons = document.getElementById("accessibility-content-button-profiles");
   if (activeProfiles.length > 0) {
-    if (contentButtons) {
-      contentButtons.style.display = "block";
+    contentButtons.style.display = "block";
+    // Limpia botones anteriores (dejando el título)
+    while (contentButtons.children.length > 1) {
+      contentButtons.removeChild(contentButtons.lastChild);
     }
+    // Filtra por títulos activos
+    const perfilNames = activeProfiles.map((p) => p.id);
+    const botonesPerfil = allButtons("accessibility-buttons-active", perfilNames);
+    contentButtons.appendChild(botonesPerfil);
   } else {
-    if (contentButtons) {
-      contentButtons.style.display = "none";
-    }
+    contentButtons.style.display = "none";
   }
 };
 
-// Función que crea la vista de perfiles visuales
+// Crea la vista de perfiles visuales
 export function visualView() {
-  // Crea el contenedor principal de la vista
   const categoriesView = document.createElement("div");
-  
   categoriesView.id = "accessibility-visual-view";
   categoriesView.classList.add("accessibility-custom-scroll", "accessibility-view", "hidden");
   categoriesView.setAttribute("aria-hidden", "true");
 
-  // Crea el título de la sección de perfiles (vacío por ahora)
-  const title = document.createElement("div");
-  title.id = "accessibility-title-profiles";
-
-  // Crea el contenedor de los perfiles disponibles
+  // Contenedor de perfiles
   const profiles = document.createElement("div");
   profiles.id = "accessibility-content-profiles";
 
-  // Agrega tarjetas de perfil al contenedor
   profiles.append(
     createCardProfile({
       id: "accessibility-btn-visual",
       title: "Baja Visión",
-      description: "Lorem ipsum dolor sit amet, consecteturadip iscingelit. Ut a enim necnislullamcorpere",
+      description: "Lorem ipsum dolor sit amet...",
       onclick: () => ToggleActiveProfiles("accessibility-btn-visual", "Baja Visión"),
     }),
     createCardProfile({
       id: "accessibility-btn-total-blindness",
       title: "Ceguera",
-      description: "Lorem ipsum dolor sit amet, consecteturadip iscingelit. Ut a enim necnislullamcorpere",
+      description: "Lorem ipsum dolor sit amet...",
       onclick: () => ToggleActiveProfiles("accessibility-btn-total-blindness", "Ceguera"),
     }),
     createCardProfile({
       id: "accessibility-btn-color-blindness",
       title: "Daltonismo",
-      description: "Lorem ipsum dolor sit amet, consecteturadip iscingelit. Ut a enim necnislullamcorpere",
+      description: "Lorem ipsum dolor sit amet...",
       onclick: () => ToggleActiveProfiles("accessibility-btn-color-blindness", "Daltonismo"),
     })
-    // Este perfil está comentado, no se incluye en la vista
-    // createCardProfile({
-    //   id: "accessibility-btn-color-perception",
-    //   title: "Percepción del Color",
-    //   description: "...",
-    //   onclick: () => switchView("view-color-perception"),
-    // })
   );
 
-  // Crea el contenedor para los botones adicionales que dependen del perfil seleccionado
+  // Contenedor de botones adicionales (oculto por defecto)
   const contentButtonProfiles = document.createElement("div");
   contentButtonProfiles.id = "accessibility-content-button-profiles";
-  contentButtonProfiles.style.display = "none"; // Oculto por defecto
-
-  // Agrega título y botón funcional dentro del contenedor de botones de perfil
+  contentButtonProfiles.style.display = "none";
   contentButtonProfiles.appendChild(
-    
     createCardTitle({ id: "accessibility-title-profile-select", text: "", btnBack: false, collapse: false })
-
   );
 
-  // Agrega todos los elementos al contenedor principal
+  // Ensamblado de la vista
   categoriesView.appendChild(
     createCardTitle({
       id: "",
@@ -115,9 +100,11 @@ export function visualView() {
   );
   categoriesView.appendChild(profiles);
   categoriesView.appendChild(contentButtonProfiles);
-  categoriesView.appendChild(createCardTitle({ id: "", text: "Mas configuraciones", btnBack: false, collapse: false }));
+  categoriesView.appendChild(
+    createCardTitle({ id: "", text: "Mas configuraciones", btnBack: false, collapse: false })
+  );
+  // Sección general de botones: muestra todos
   categoriesView.appendChild(allButtons("accessibility-content-others-buttons"));
 
-  // Retorna la vista completa para ser agregada al DOM
   return categoriesView;
-}
+} 

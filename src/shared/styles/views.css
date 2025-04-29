@@ -16,11 +16,7 @@
   gap: 15px;
 }
 
-#accessibility-visual-view {
-  padding: 10px;
-  overflow: auto;
-  height: calc(100% - 20px);
-}
+
 
 #accessibility-content-profiles {
   display: flex;
@@ -29,9 +25,54 @@
   gap: 10px 4px;
 }
 
+#accessibility-buttons-active {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 4px;
+}
+#accessibility-visual-view,
+#accessibility-mental-view,
+#accessibilit-auditory-view,
+#accessibility-physical-view,
+#accessibility-cognitive-view{
+  padding: 10px;
+  overflow: auto;
+  height: calc(100% - 20px);
+}
+
 #accessibility-visual-view #accessibility-content-others-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px 4px;
 }
+
+#accessibility-mental-view #accessibility-content-others-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 4px;
+}
+
+#accessibility-auditory-view #accessibility-content-others-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 4px;
+}
+
+#accessibility-physical-view #accessibility-content-others-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 4px;
+}
+#accessibility-cognitive-view #accessibility-content-others-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 4px;
+}
+
+

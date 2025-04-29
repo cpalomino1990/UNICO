@@ -1,4 +1,4 @@
-// components/mentalView.js
+// components/cognitiveView.js
 import { switchView } from "../../widget";
 import { allButtons } from "../components/allButtons/allButtons";
 import { createCardProfile, createCardTitle } from "../utils/createElements";
@@ -27,12 +27,12 @@ const ToggleActiveProfiles = (id, title) => {
 
   // Actualiza texto del título según perfiles activos
   const elementTitle = document.querySelector(
-    "#accessibility-title-profile-select-mental .accessibility-title-card-content-left .accessibility-title-card-text"
+    "#accessibility-title-profile-select-cognitive .accessibility-title-card-content-left .accessibility-title-card-text"
   );
   elementTitle.innerHTML = activeProfiles.length > 1 ? "Personalizado" : activeProfiles[0]?.title || "";
 
   // Reconstruye el contenedor de botones de perfiles
-  const contentButtons = document.getElementById("accessibility-content-button-profiles-mental");
+  const contentButtons = document.getElementById("accessibility-content-button-profiles-cognitive");
   if (activeProfiles.length > 0) {
     contentButtons.style.display = "block";
     // Limpia botones anteriores (dejando el título)
@@ -48,10 +48,10 @@ const ToggleActiveProfiles = (id, title) => {
   }
 };
 
-// Crea la vista de perfilesmentales
-export function mentalView() {
+// Crea la vista de perfiles cognitive
+export function cognitiveView() {
   const categoriesView = document.createElement("div");
-  categoriesView.id = "accessibility-mental-view";
+  categoriesView.id = "accessibility-cognitive-view";
   categoriesView.classList.add("accessibility-custom-scroll", "accessibility-view", "hidden");
   categoriesView.setAttribute("aria-hidden", "true");
 
@@ -61,46 +61,28 @@ export function mentalView() {
 
   profiles.append(
     createCardProfile({
-      id: "accessibility-btn-asperger",
-      title: "Asperger",
+      id: "accessibility-btn-autism",
+      title: "Autismo",
       description: "Lorem ipsum dolor sit amet...",
-      onclick: () => ToggleActiveProfiles("accessibility-btn-asperger", "Asperger"),
+      onclick: () => ToggleActiveProfiles("accessibility-btn-autism", "Autismo"),
     }),
     createCardProfile({
-      id: "accessibility-btn-downsyndrom",
-      title: "Sindrome de Down",
-      description: "Lorem ipsum dolor sit amet...",
-      onclick: () => ToggleActiveProfiles("accessibility-btn-downsyndrom", "Sindrome de Down"),
-    }),
-    createCardProfile({
-      id: "accessibility-btn-dyslexia",
-      title: "Dislexia",
-      description: "Lorem ipsum dolor sit amet...",
-      onclick: () => ToggleActiveProfiles("accessibility-btn-dyslexia", "Dislexia"),
-    }),
-
-    createCardProfile({
-        id: "accessibility-btn-epilepsy",
-        title: "Epilepsia",
+        id: "accessibility-btn-tco",
+        title: "TCO",
         description: "Lorem ipsum dolor sit amet...",
-        onclick: () => ToggleActiveProfiles("accessibility-btn-epilepsy", "Epilepsia"),
-    }),
-    createCardProfile({
-        id: "accessibility-btn-hyperactivity",
-        title: "Hiperactividad",
-        description: "Lorem ipsum dolor sit amet...",
-        onclick: () => ToggleActiveProfiles("accessibility-btn-hyperactivity", "Hiperactividad"),
-    })
+        onclick: () => ToggleActiveProfiles("accessibility-btn-tco", "TCO"),
+      }),
+    
 
       
   );
 
   // Contenedor de botones adicionales (oculto por defecto)
   const contentButtonProfiles = document.createElement("div");
-  contentButtonProfiles.id = "accessibility-content-button-profiles-mental";
+  contentButtonProfiles.id = "accessibility-content-button-profiles-cognitive";
   contentButtonProfiles.style.display = "none";
   contentButtonProfiles.appendChild(
-    createCardTitle({ id: "accessibility-title-profile-select-mental", text: "", btnBack: false, collapse: false })
+    createCardTitle({ id: "accessibility-title-profile-select-cognitive", text: "", btnBack: false, collapse: false })
   );
 
   // Ensamblado de la vista

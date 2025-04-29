@@ -1,3 +1,4 @@
+ // components/allButtons/allButtons.js
 import { FontsizeChange } from "../../../features/buttons/buttonChangeTextSize";
 import { toggleLargeCursor } from "../../../features/buttons/buttonCursorSatyle";
 import { toggleHighlightColors } from "../../../features/buttons/buttonhighlightColors";
@@ -34,22 +35,45 @@ import {
 } from "../../../features/buttons/buttondaltonismo";
 import { createFuncionalityButton } from "../../utils/createElements";
 
+// Configuración de todos los botones con perfiles asociados
 const buttonsConfig = [
-  { id: "outline-mode", title: "Modo de Resaltado", onclick: () => toggleButton("outline-mode", toggleOutlineMode) },
+  {
+    id: "outline-mode",
+    title: "Modo de Resaltado",
+    onclick: () => toggleButton("outline-mode", toggleOutlineMode),
+    profiles: ["accessibility-btn-visual", "accessibility-btn-color-blindness", "Trastornos de Aprendizaje", "Discapacidad Cognitiva","accessibility-btn-dyslexia","accessibility-btn-epilepsy"],
+  },
   {
     id: "highlight-Important",
     title: "Resaltar Texto",
     onclick: () => toggleButton("highlight-Important", toggleHighlightImportant),
+    profiles: ["accessibility-btn-visual", "Trastornos de Aprendizaje","accessibility-btn-autism"],
   },
-  { id: "toggle-Zoon", title: "Lupa", onclick: () => toggleButton("toggle-Zoon", toggleTextMagnifier) },
-  { id: "test-Size", title: "Aumentar Texto", onclick: () => toggleButton("test-Size", FontsizeChange) },
-  { id: "space-Text", title: "Aumentar Espaciado", onclick: () => toggleButton("space-Text", toggleLetterSpacing) },
+  {
+    id: "toggle-Zoon",
+    title: "Lupa",
+    onclick: () => toggleButton("toggle-Zoon", toggleTextMagnifier),
+    profiles: ["accessibility-btn-visual"],
+  },
+  {
+    id: "test-Size",
+    title: "Aumentar Texto",
+    onclick: () => toggleButton("test-Size", FontsizeChange),
+    profiles: ["accessibility-btn-visual", "Trastornos de Aprendizaje","accessibility-btn-downsyndrom"],
+  },
+  {
+    id: "space-Text",
+    title: "Aumentar Espaciado",
+    onclick: () => toggleButton("space-Text", toggleLetterSpacing),
+    profiles: ["Trastornos de Aprendizaje","accessibility-btn-downsyndrom"],
+  },
   {
     id: "highlight-colors",
     title: "Resaltar Colores",
     onclick: () => toggleButton("highlight-colors", toggleHighlightColors),
     countOptions: 3,
     labelOptions: ["Contraste Alto", "Escala de Grises", "Cambio de Tonos"],
+    profiles: ["accessibility-btn-visual"],
   },
   {
     id: "read-text-aloud",
@@ -57,113 +81,168 @@ const buttonsConfig = [
     onclick: () => toggleButton("read-text-aloud", toggleReadOnHover),
     countOptions: 3,
     labelOptions: ["Leer normal", "Leer rapido", "Leer lento"],
+    profiles: [ "accessibility-btn-total-blindness","Discapacidad Cognitiva", "Trastornos de Aprendizaje","accessibility-btn-dyslexia","accessibility-btn-epilepsy","accessibility-btn-autism"],
   },
   {
     id: "highlight-links",
     title: "Resaltar Enlaces",
     onclick: () => toggleButton("highlight-links", highlightLinks),
+    profiles: ["accessibility-btn-visual","accessibility-btn-autism"],
   },
   {
     id: "toggle-animations",
     title: "Detener Animaciones",
     onclick: () => toggleButton("toggle-animations", toggleAnimations),
+    profiles: ["Discapacidad Cognitiva","accessibility-btn-asperger","accessibility-btn-downsyndrom","accessibility-btn-dyslexia","accessibility-btn-epilepsy","accessibility-btn-hyperactivity","accessibility-btn-autism"],
   },
   {
     id: "toggle-reading-bar",
     title: "Activar Barra de Lectura",
     onclick: () => toggleButton("toggle-reading-bar", toggleReadingBar),
+    profiles: ["Trastornos de Aprendizaje", "accessibility-btn-visual"],
   },
-  { id: "cursor-style", title: "Cursor Grande", onclick: () => toggleButton("cursor-style", toggleLargeCursor) },
-  { id: "toggle-font", title: "Fuente Legible", onclick: () => toggleButton("toggle-font", toggleFontStyle) },
+  {
+    id: "cursor-style",
+    title: "Cursor Grande",
+    onclick: () => toggleButton("cursor-style", toggleLargeCursor),
+    profiles: ["accessibility-btn-visual", "Motora", "accessibility-btn-downsyndrom"],
+  },
+  {
+    id: "toggle-font",
+    title: "Fuente Legible",
+    onclick: () => toggleButton("toggle-font", toggleFontStyle),
+    profiles: ["Trastornos de Aprendizaje","accessibility-btn-dyslexia","accessibility-btn-epilepsy"],
+  },
   {
     id: "read-read-speed",
     title: "Velocidad de Lectura",
     onclick: () => toggleButton("read-read-speed", toggleReadSpeed),
+    profiles: [ "accessibility-btn-total-blindness","Discapacidad Cognitiva", "Trastornos de Aprendizaje"],
   },
   {
     id: "create-volume-control",
     title: "Control de Volumen",
     onclick: () => toggleButton("create-volume-control", createVolumeControlButton),
+    profiles: ["accessibility-btn-total-blindness"],
   },
   {
     id: "daltonismo-protanopia",
     title: "Protanopia",
     onclick: () => toggleButton("daltonismo-protanopia", activateProtanopia),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-deuteranopia",
     title: "Deuteranopia",
     onclick: () => toggleButton("daltonismo-deuteranopia", activateDeuteranopia),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-tritanopia",
     title: "Tritanopia",
     onclick: () => toggleButton("daltonismo-tritanopia", activateTritanopia),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-protanomaly",
     title: "Protanomalia",
     onclick: () => toggleButton("daltonismo-protanomaly", activateProtanomaly),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-deuteranomaly",
     title: "Deuteranomalia",
     onclick: () => toggleButton("daltonismo-deuteranomaly", activateDeuteranomaly),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-tritanomaly",
     title: "Tritanomalia",
     onclick: () => toggleButton("daltonismo-tritanomaly", activateTritanomaly),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-achromatomaly",
     title: "Acromatomalia",
     onclick: () => toggleButton("daltonismo-achromatomaly", activateAchromatomaly),
+    profiles: ["accessibility-btn-color-blindness"],
   },
   {
     id: "daltonismo-achromatopsia",
     title: "Acromatopsia",
     onclick: () => toggleButton("daltonismo-achromatopsia", activateAchromatopsia),
+    profiles: ["accessibility-btn-color-blindness"],
   },
-  { id: "focus-frame", title: "Marco de Enfoque", onclick: () => toggleButton("focus-frame", toggleFocusFrame) },
+  {
+    id: "focus-frame",
+    title: "Marco de Enfoque",
+    onclick: () => toggleButton("focus-frame", toggleFocusFrame),
+    profiles: [ "accessibility-btn-color-blindness","Trastornos de Aprendizaje", "Discapacidad Cognitiva"],
+  },
   {
     id: "selective-contrast",
     title: "Contraste Selectivo",
     onclick: () => toggleButton("selective-contrast", toggleSelectiveContrast),
+    profiles: ["Visión Baja","accessibility-btn-color-blindness"],
   },
   {
     id: "Guided-Reading",
     title: "Lectura Pausada",
     onclick: () => toggleButton("Guided-Reading", toggleWordByWordReading),
+    profiles: ["accessibility-btn-asperger", "Discapacidad Cognitiva"],
   },
   {
     id: "toggle-animationss",
     title: "Modo Concentracion",
     onclick: () => toggleButton("toggle-animationss", toggleSimplifiedText),
+    profiles: ["Discapacidad Cognitiva","accessibility-btn-asperger","accessibility-btn-dyslexia","accessibility-btn-epilepsy","accessibility-btn-autism"],
   },
   {
     id: "toggle-mute",
     title: "Silenciar Sonido",
     onclick: () => toggleButton("toggle-mute", setGlobalMediaVolumeToZero),
+    profiles: ["Sordera", "accessibility-btn-asperger"],
   },
   {
     id: "toggle-Reading-Mask",
     title: "Máscara de Lectura",
     onclick: () => toggleButton("toggle-Reading-Mask", toggleReadingMask),
+    profiles: ["Trastornos de Aprendizaje","accessibility-btn-dyslexia","accessibility-btn-epilepsy","accessibility-btn-hyperactivity"],
   },
   {
     id: "toggle-Disléxica",
     title: "Fuente Disléxica",
     onclick: () => toggleButton("toggle-Disléxica", toggleDyslexiaFont),
+    profiles: ["accessibility-btn-dyslexia"],
   },
   {
     id: "control-scroll",
     title: "Control Desplazamiento",
     onclick: () => toggleButton("control-scroll", preventAbruptScroll),
+    profiles: ["Motora","accessibility-btn-dyslexia","accessibility-btn-dyslexia","accessibility-btn-epilepsy"],
   },
-  { id: "low-contrast", title: "Contraste Bajo", onclick: () => toggleButton("low-contrast", toggleLowContrast) },
-  { id: "eyes-cursor", title: "Control si Manos", onclick: () => toggleButton("eyes-cursor", initEyeCursorControl) },
+  {
+    id: "low-contrast",
+    title: "Contraste Bajo",
+    onclick: () => toggleButton("low-contrast", toggleLowContrast),
+    profiles: ["accessibility-btn-visual","accessibility-btn-dyslexia","accessibility-btn-epilepsy","accessibility-btn-autism"],
+  },
+  {
+    id: "eyes-cursor",
+    title: "Control si Manos",
+    onclick: () => toggleButton("eyes-cursor", initEyeCursorControl),
+    profiles: ["accessibility-btn-physical"],
+  },
+  {
+    id:"sig-lenguaje",
+    title:"Traductor de Lengua de Señas",
+    onclick: () => toggleButton("sig-lenguaje"),
+    profiles: ["accessibility-btn-sorta"],
+
+  }
 ];
+
+
 
 // const buttonsActive = [];
 const toggleButton = (id, onclick) => {
@@ -237,15 +316,32 @@ const toggleButton = (id, onclick) => {
   onclick();
 };
 
-export const allButtons = (id) => {
-  const contentOthersButtons = document.createElement("div");
-  contentOthersButtons.id = id;
+export const allButtons = (id, profiles = []) => {
+  const container = document.createElement("div");
+  container.id = id;
 
-  buttonsConfig.forEach(({ id, title, onclick, countOptions, labelOptions }) => {
-    contentOthersButtons.appendChild(
+  const uniqueIds = new Set();
+
+  const filteredButtons = buttonsConfig.filter((btn) => {
+    return profiles.length === 0
+      ? true
+      : btn.profiles?.some((p) => profiles.includes(p));
+  }).filter((btn) => {
+    if (!uniqueIds.has(btn.id)) {
+      uniqueIds.add(btn.id);
+      return true;
+    }
+    return false;
+  });
+
+  console.log("Botones filtrados:", filteredButtons);
+
+  filteredButtons.forEach(({ id, title, onclick, countOptions, labelOptions }) => {
+    container.appendChild(
       createFuncionalityButton({ id, title, icon: "", onclick, countOptions, labelOptions })
     );
   });
 
-  return contentOthersButtons;
+  return container;
 };
+
