@@ -1,5 +1,7 @@
-const cursorManito = "http://127.0.0.1:5501/public/03.svg";
-const cursorGrande = "http://127.0.0.1:5501/public/01.svg"
+import { host } from "../../shared/constants/enviroments";
+
+const cursorManito = `${host}/public/03.svg`;
+const cursorGrande = `${host}/public/03.svg`;
 
 
 export function toggleLargeCursor() {
