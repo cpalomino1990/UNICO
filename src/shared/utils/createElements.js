@@ -124,7 +124,7 @@ export function createBannerUser() {
 
 // Función para crear tarjetas de perfil
 export function createCardProfile(props = { id, title, description, onclick }) {
-  const card = document.createElement("div");
+  const card = document.createElement("button");
   card.id = props.id;
   card.classList.add("accessibility-profile-card");
   card.innerHTML = `
@@ -162,7 +162,7 @@ export function createCardTitle(props = { id, text, btnBack, collapse, onclick }
   // Creación del botón "atrás"
   const buttonBack = createButton("back-to-menu", "", props.onclick);
   buttonBack.classList.add("accessibility-circle-button-sm");
-  buttonBack.innerHTML = `${DynamicIcon({ icon: "right" })}`; // Icono de flecha hacia atrás
+  buttonBack.innerHTML = `${DynamicIcon({ icon: "left" })}`; // Icono de flecha hacia atrás
 
   // Creación del título
   const title = document.createElement("p");
@@ -180,7 +180,7 @@ export function createCardTitle(props = { id, text, btnBack, collapse, onclick }
   // Contenedor derecho (icono de colapso si es necesario)
   const contentRight = document.createElement("div");
   contentRight.classList.add("accessibility-title-card-content-right");
-  contentRight.innerHTML = `${DynamicIcon({ icon: "bottom" })}`; // Icono de colapso
+  contentRight.innerHTML = `${DynamicIcon({ icon: "down" })}`; // Icono de colapso
 
   // Agregamos los contenedores al card
   card.appendChild(contentLeft);
@@ -196,7 +196,7 @@ export function createFuncionalityButton(
   props = { id, title, icon, description, onclick, countOptions, labelOptions }
 ) {
   const countOptions = props.countOptions || 1; // Si no se especifica, el valor por defecto es 1
-  const card = document.createElement("div");
+  const card = document.createElement("button");
   card.id = props.id;
   if (countOptions === 1) {
     card.style.position = "relative"; // Aseguramos que se posicionen bien las opciones si es solo una
@@ -232,4 +232,160 @@ export function createFuncionalityButton(
   card.addEventListener("click", props.onclick);
 
   return card;
+}
+
+export function createCollapse(props = { id, title, content, visible }) {
+  const hiddenClass = props.visible ? null : "hidden"; // Determina si el contenido está oculto o visible
+  // Creación del elemento collapse
+  const collapseContainer = document.createElement("div");
+  collapseContainer.id = props.id;
+  collapseContainer.classList.add("accessibility-collapse-container");
+
+  const collapseHeader = document.createElement("div");
+  collapseHeader.classList.add("accessibility-collapse-header");
+  collapseHeader.innerHTML = `
+    <p class="accessibility-collapse-title">${props.title || "Titulo"}</p>
+    <span class="accessibility-collapse-icon">${DynamicIcon({ icon: hiddenClass ? "down" : "up" })}</span>
+  `;
+
+  const collapseContent = document.createElement("div");
+  collapseContent.classList.add("accessibility-collapse-content");
+  hiddenClass && collapseContent.classList.add(hiddenClass); // Agregar clase para ocultar el contenido
+  collapseContent.setAttribute("aria-hidden", "true"); // Atributo para accesibilidad
+  collapseContent.appendChild(props.content); // Agregar el contenido al collapse
+
+  // Agregar funcionalidad de colapso
+  collapseHeader.addEventListener("click", () => {
+    collapseContent.classList.toggle("hidden");
+    const icon = collapseHeader.querySelector(".accessibility-collapse-icon");
+    icon.innerHTML = collapseContent.classList.contains("hidden")
+      ? DynamicIcon({ icon: "down" })
+      : DynamicIcon({ icon: "up" });
+    collapseContent.setAttribute("aria-hidden", collapseContent.classList.contains("hidden"));
+  });
+
+  // Agregar el header y el contenido al contenedor del collapse
+  collapseContainer.appendChild(collapseHeader);
+  collapseContainer.appendChild(collapseContent);
+
+  // Devolver el contenedor del collapse
+  return collapseContainer;
+}
+
+// Creacion de input forms
+export function createInputForm(props = { id, type, placeholder, value, label, onchange }) {
+  const container = document.createElement("div");
+  container.classList.add("accessibility-input-form-container");
+
+  if (props.label) {
+    const label = document.createElement("label");
+    label.htmlFor = props.id;
+    label.textContent = props.label;
+    container.appendChild(label);
+  }
+
+  const input = document.createElement("input");
+  input.id = props.id;
+  input.type = props.type || "text"; // Tipo de input por defecto es "text"
+  input.placeholder = props.placeholder || ""; // Placeholder por defecto es vacío
+  input.value = props.value || ""; // Valor por defecto es vacío
+
+  // Event listener para manejar cambios en el input
+  if (props.onchange) {
+    input.addEventListener("change", props.onchange);
+  }
+
+  container.appendChild(input);
+  return container; // Devolver el contenedor con el label y el input
+}
+
+// Creacion de selects forms
+export function createSelectForm(props = { id, options, label, onchange }) {
+  const container = document.createElement("div");
+  container.classList.add("accessibility-select-form-container");
+
+  if (props.label) {
+    const label = document.createElement("label");
+    label.htmlFor = props.id;
+    label.textContent = props.label;
+    container.appendChild(label);
+  }
+
+  const select = document.createElement("select");
+  select.id = props.id;
+
+  // Agregar las opciones al select
+  props.options.forEach((option) => {
+    const opt = document.createElement("option");
+    opt.value = option.value || option; // Valor de la opción
+    opt.textContent = option.text || option; // Texto de la opción
+    select.appendChild(opt);
+  });
+
+  // Event listener para manejar cambios en el select
+  if (props.onchange) {
+    select.addEventListener("change", props.onchange);
+  }
+
+  container.appendChild(select);
+  return container; // Devolver el contenedor con el label y el select
+}
+
+// Creacion de input file forms
+export function createInputFileForm(props = { id, accept, onchange }) {
+  const container = document.createElement("div");
+  container.classList.add("accessibility-input-file-form-container");
+
+  // Creacion del contenedor dropabble
+  const dropabbleContainer = document.createElement("div");
+  dropabbleContainer.classList.add("accessibility-dropabble-container");
+  dropabbleContainer.innerHTML += `
+    <div>
+      <p>${DynamicIcon({ icon: "image" })}</p>
+      <p>Arrastra y suelta el archivo aquí</p>
+      <p>o selecciona uno de tu galeria</p>
+    </div>
+  `;
+
+  const input = document.createElement("input");
+  input.id = props.id;
+  input.type = "file"; // Tipo de input es "file"
+  input.hidden = true; // Ocultar el input file por defecto
+  input.accept = props.accept || "*"; // Aceptar cualquier tipo de archivo por defecto
+
+  input.addEventListener("change", (event) => {
+    const file = event.target.files[0]; // Obtener el primer archivo seleccionado
+    if (file && props.onchange) {
+      props.onchange(file); // Llamar a la función onchange con el archivo seleccionado
+    }
+  });
+
+  // Evento click para abrir el selector de archivos al hacer clic en el contenedor dropabble
+  dropabbleContainer.addEventListener("click", () => {
+    input.click(); // Simular clic en el input file
+  });
+
+  // Evento dragover para permitir el arrastre de archivos al contenedor dropabble
+  dropabbleContainer.addEventListener("dragover", (event) => {
+    event.preventDefault(); // Prevenir el comportamiento por defecto al arrastrar
+  });
+
+  // Evento dragleave para manejar el evento de salir del contenedor dropabble
+  dropabbleContainer.addEventListener("dragleave", (event) => {
+    event.preventDefault(); // Prevenir el comportamiento por defecto al salir
+  });
+
+  // Evento drop para manejar el archivo soltado en el contenedor dropabble
+  dropabbleContainer.addEventListener("drop", (event) => {
+    event.preventDefault(); // Prevenir el comportamiento por defecto al soltar
+    const file = event.dataTransfer.files[0]; // Obtener el primer archivo soltado
+    if (file && props.onchange) {
+      props.onchange(file); // Llamar a la función onchange con el archivo soltado
+    }
+  });
+
+  dropabbleContainer.appendChild(input); // Agregar el input al contenedor dropabble
+  container.appendChild(dropabbleContainer);
+
+  return container; // Devolver el contenedor con el label y el input file
 }

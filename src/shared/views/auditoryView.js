@@ -27,12 +27,12 @@ const ToggleActiveProfiles = (id, title) => {
 
   // Actualiza texto del título según perfiles activos
   const elementTitle = document.querySelector(
-    "#accessibility-title-profile-select-auditory .accessibility-title-card-content-left .accessibility-title-card-text"
+    "#accessibility-title-profile-select .accessibility-title-card-content-left .accessibility-title-card-text"
   );
   elementTitle.innerHTML = activeProfiles.length > 1 ? "Personalizado" : activeProfiles[0]?.title || "";
 
   // Reconstruye el contenedor de botones de perfiles
-  const contentButtons = document.getElementById("accessibility-content-button-profiles-auditory");
+  const contentButtons = document.getElementById("accessibility-content-button-profiles");
   if (activeProfiles.length > 0) {
     contentButtons.style.display = "block";
     // Limpia botones anteriores (dejando el título)

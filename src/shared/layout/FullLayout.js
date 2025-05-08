@@ -1,7 +1,7 @@
 import "../styles/fullLayout.css";
 import "../styles/views.css";
 import "../styles/elements.css";
-import { createButton, toggleMenu } from "../../widget";
+import { createButton, switchView, toggleMenu } from "../../widget";
 import { host } from "../constants/enviroments";
 import { ChangeTheme } from "../utils/actions";
 
@@ -23,7 +23,7 @@ const header = () => {
   logo.appendChild(logoImg);
 
   // Boton de usuario
-  const userButton = createButton("accessibility-user-button", "", toggleMenu);
+  const userButton = createButton("accessibility-user-button", "", () => switchView("accessibility-user-login-view"));
   userButton.classList.add("accessibility-circle-button");
   userButton.innerHTML = `<img src="${host}/src/shared/assets/icons/generals/icon-user.svg" alt="User Icon">`;
 
@@ -87,13 +87,6 @@ const footer = () => {
   helpButton.classList.add("accessibility-circle-button");
   helpButton.innerHTML = `<img src="${host}/src/shared/assets/icons/generals/icon-help.svg" alt="Help Icon">`;
 
-  // Link de statuto de accesibilidad
-  const accessibilityLink = document.createElement("a");
-  accessibilityLink.id = "accessibility-footer-link";
-  accessibilityLink.href = "https://www.unyco.org/estatutodeaccesibilidad/";
-  accessibilityLink.target = "_blank";
-  accessibilityLink.innerText = "Accessibility Statement";
-
   // Agregamos los botones al footer
   const footerButtons = document.createElement("div");
   footerButtons.id = "accessibility-footer-buttons";
@@ -104,7 +97,6 @@ const footer = () => {
   footerButtons.appendChild(helpButton);
 
   footer.appendChild(footerButtons);
-  footer.appendChild(accessibilityLink);
 
   return footer;
 };

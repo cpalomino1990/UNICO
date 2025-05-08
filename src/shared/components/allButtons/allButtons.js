@@ -1,7 +1,17 @@
  // components/allButtons/allButtons.js
 import { FontsizeChange } from "../../../features/buttons/buttonChangeTextSize";
 import { toggleLargeCursor } from "../../../features/buttons/buttonCursorSatyle";
-import { toggleHighlightColors } from "../../../features/buttons/buttonhighlightColors";
+import { 
+  // toggleHighlightColors,
+  // activateAchromatomaly,
+  // activateAchromatopsia,
+  // activateDeuteranomaly,
+  // activateDeuteranopia,
+  // activateProtanomaly,
+  // activateProtanopia,
+  // activateTritanomaly,
+  // activateTritanopia,
+} from "../../../features/buttons/buttonhighlightColors";
 import { toggleHighlightImportant } from "../../../features/buttons/buttonhighlightimportant";
 import { highlightLinks } from "../../../features/buttons/buttonhighlightLinks";
 import { toggleLetterSpacing } from "../../../features/buttons/buttonLetterSpacing";
@@ -22,8 +32,9 @@ import { toggleFocusFrame } from "../../../features/buttons/buttonFocusFrame";
 import { toggleWordByWordReading } from "../../../features/buttons/buttonGuidedReading";
 import { setGlobalMediaVolumeToZero } from "../../../features/buttons/buttonToggleGlobalMute";
 import { preventAbruptScroll } from "../../../features/buttons/buttonScollControl";
-import { toggleLowContrast } from "../../../features/buttons/buttontoggleLowContrast";
+
 import {
+  toggleHighlightColors,
   activateAchromatomaly,
   activateAchromatopsia,
   activateDeuteranomaly,
@@ -31,9 +42,14 @@ import {
   activateProtanomaly,
   activateProtanopia,
   activateTritanomaly,
-  activateTritanopia,
+  activatetritanopia,
+  activateLowContrast
 } from "../../../features/buttons/buttondaltonismo";
+import{setupColorSlider} from "../../../features/buttons/buttonColorSlider";
+import{startCalibration} from "../../../features/buttons/startCalibration";
+
 import { createFuncionalityButton } from "../../utils/createElements";
+import {toggleVirtualKeyboard, } from "../../../features/buttons/buttonActivateKeyBoard";
 
 // Configuración de todos los botones con perfiles asociados
 const buttonsConfig = [
@@ -59,13 +75,17 @@ const buttonsConfig = [
     id: "test-Size",
     title: "Aumentar Texto",
     onclick: () => toggleButton("test-Size", FontsizeChange),
+    countOptions: 3,
+    labelOptions: ["Aumentado 25%", "Aumentado 50%", "Aumentado 75%"],
     profiles: ["accessibility-btn-visual", "Trastornos de Aprendizaje","accessibility-btn-downsyndrom"],
   },
   {
     id: "space-Text",
     title: "Aumentar Espaciado",
     onclick: () => toggleButton("space-Text", toggleLetterSpacing),
-    profiles: ["Trastornos de Aprendizaje","accessibility-btn-downsyndrom"],
+    countOptions: 3,
+    labelOptions: ["Aumentado 5%", "Aumentado 10%", "Aumentado 15%"],
+    profiles: ["Trastornos de Aprendizaje","accessibility-btn-downsyndrom","accessibility-btn-visual"],
   },
   {
     id: "highlight-colors",
@@ -140,7 +160,7 @@ const buttonsConfig = [
   {
     id: "daltonismo-tritanopia",
     title: "Tritanopia",
-    onclick: () => toggleButton("daltonismo-tritanopia", activateTritanopia),
+    onclick: () => toggleButton("daltonismo-tritanopia", activatetritanopia),
     profiles: ["accessibility-btn-color-blindness"],
   },
   {
@@ -224,25 +244,39 @@ const buttonsConfig = [
   {
     id: "low-contrast",
     title: "Contraste Bajo",
-    onclick: () => toggleButton("low-contrast", toggleLowContrast),
+    onclick: () => toggleButton("low-contrast", activateLowContrast),
     profiles: ["accessibility-btn-visual","accessibility-btn-dyslexia","accessibility-btn-epilepsy","accessibility-btn-autism"],
   },
   {
     id: "eyes-cursor",
     title: "Control si Manos",
-    onclick: () => toggleButton("eyes-cursor", initEyeCursorControl),
+    onclick: () => toggleButton("eyes-cursor", startCalibration ),
+    
     profiles: ["accessibility-btn-physical"],
   },
   {
     id:"sig-lenguaje",
-    title:"Traductor de Lengua de Señas",
+    title:"Traductor de Lengua de Señas", 
     onclick: () => toggleButton("sig-lenguaje"),
     profiles: ["accessibility-btn-sorta"],
 
+  },
+  {
+    id:"virtual-keyboard",
+    title:"Teclado En Pantalla",
+    onclick: () => toggleButton("virtual-keyboard",toggleVirtualKeyboard),
+    profiles: ["accessibility-btn-physical"],
+  },
+  {
+    id:"color-slider",
+    title:"Cambiar Color Texto",
+    onclick: () => toggleButton("color-slider",setupColorSlider),
+    profiles: ["accessibility-btn-visual"],
+    slider: true, // Indica que este botón es un slider
   }
 ];
 
-
+// Removed inv}alid JSX usage of <Slider> as it was outside a React component or render method.
 
 // const buttonsActive = [];
 const toggleButton = (id, onclick) => {
@@ -250,6 +284,10 @@ const toggleButton = (id, onclick) => {
   const element = document.getElementById(id); // Obtiene el elemento por ID
   let count = item.count ?? 0; // Inicializa el contador
   console.log(item.count);
+
+  
+  
+
 
   if (item?.countOptions && item.countOptions > 1) {
     const text = element.querySelector(".accessibility-funcionality-button-content p");
@@ -312,6 +350,7 @@ const toggleButton = (id, onclick) => {
     //   buttonsActive.push({ id }); // Si no existe, lo agrega
     // }
   }
+
 
   onclick();
 };

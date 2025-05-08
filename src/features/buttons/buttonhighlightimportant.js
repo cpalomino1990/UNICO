@@ -1,21 +1,18 @@
-//funcion para resaltar los elementos importantes de la pagina
-// Resalta los elementos importantes de la página al hacer clic en el botón correspondiente
-
 const highlightClass = "highlight-important";
 
 export function toggleHighlightImportant() {
-    if (document.body.classList.contains(highlightClass)) {
-        document.body.classList.remove(highlightClass);
+    const alreadyActive = document.body.classList.contains(highlightClass);
+
+    if (alreadyActive) {
         removeHighlightStyles();
         localStorage.setItem("highlightImportant", "false");
     } else {
-        document.body.classList.add(highlightClass);
         applyHighlightStyles();
         localStorage.setItem("highlightImportant", "true");
     }
+    document.body.classList.toggle(highlightClass);
 }
 
-// Inyectar estilos para resaltar los elementos importantes
 function applyHighlightStyles() {
     let styleTag = document.getElementById("highlight-important-style");
 
@@ -23,33 +20,44 @@ function applyHighlightStyles() {
         styleTag = document.createElement("style");
         styleTag.id = "highlight-important-style";
         styleTag.innerHTML = `
-            .highlight-important h1, 
-            .highlight-important h2, 
-            .highlight-important h3, 
-            .highlight-important a, 
-            .highlight-important button, 
-            .highlight-important input, 
-            .highlight-important textarea, 
-            .highlight-important select, 
-            .highlight-important [role="button"] {
-                outline: 3px solid #ffcc00 !important; 
-                box-shadow: 0 0 10px rgba(255, 204, 0, 0.8) !important;
-                border-radius: 4px;
+            .highlight-important [data-highlighted="true"] {
+                outline: 2px solid #f7c948 !important;
+                outline-offset: 4px;
+                box-shadow: 0 0 6px rgba(247, 201, 72, 0.4) !important;
+                
+                transition: outline 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
             }
         `;
         document.head.appendChild(styleTag);
     }
+
+    // Elementos importantes
+    const selectors = [
+        "h1", "h2", "h3",
+        "a", "button", "input",
+        "textarea", "select",
+        '[role="button"]'
+    ];
+
+    const elements = Array.from(document.querySelectorAll(selectors.join(',')));
+
+    elements.forEach(el => {
+        // Solo resaltar si no está contenido en otro resaltado
+        if (!el.closest('[data-highlighted="true"]')) {
+            el.setAttribute('data-highlighted', 'true');
+        }
+    });
 }
 
-// Eliminar los estilos de resaltado
 function removeHighlightStyles() {
     const styleTag = document.getElementById("highlight-important-style");
-    if (styleTag) {
-        styleTag.remove();
-    }
+    if (styleTag) styleTag.remove();
+
+    // Limpiar los atributos en los elementos
+    const highlightedElements = document.querySelectorAll('[data-highlighted="true"]');
+    highlightedElements.forEach(el => el.removeAttribute('data-highlighted'));
 }
 
-// Aplicar el estado guardado al recargar la página
 export function loadHighlightImportantSetting() {
     if (localStorage.getItem("highlightImportant") === "true") {
         document.body.classList.add(highlightClass);

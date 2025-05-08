@@ -1,70 +1,68 @@
 const sizeLevels = [
-  { fontsize: "105%",   label: "Aumentar +25%" },
-  { fontsize: "108",    label: "Aumentar +50%" },
-  { fontsize: "113%",   label: "Aumentar +75%" }
+  { fontsize: "105%", label: "Aumentar +25%" },
+  { fontsize: "110%", label: "Aumentar +50%" },
+  { fontsize: "115%", label: "Aumentar +75%" }
 ];
 
 let currentSizeIndex = 0;
-let sizeButton = null; // Referencia al botón
+let sizeButton = null;
 
 export function FontsizeChange() {
   let styleTag = document.getElementById("letter-size-style");
 
   if (!styleTag) {
-      styleTag = document.createElement("style");
-      styleTag.id = "letter-size-style";
-      document.head.appendChild(styleTag);
+    styleTag = document.createElement("style");
+    styleTag.id = "letter-size-style";
+    document.head.appendChild(styleTag);
   }
 
-  // Si ya llegamos al último nivel, restablecemos
+  // Si ya pasamos el último nivel, reiniciamos
   if (currentSizeIndex >= sizeLevels.length) {
-      removeFontsizeChange();
-      localStorage.removeItem("forntSize");
-      currentSizeIndex = 0;
-      UpdateFontsizeChange("Aumnetar Letras ");
+    removeFontsizeChange();
+    localStorage.removeItem("letterSize");
+    currentSizeIndex = 0;
+    UpdateFontsizeChange("Aumentar letra");
   } else {
-      applyLetterSize(sizeLevels[currentSizeIndex].fontsize);
-      localStorage.setItem("letterSize", currentSizeIndex);
-      UpdateFontsizeChange(sizeLevels[currentSizeIndex].label);
-      currentSizeIndex++;
+    applyLetterSize(sizeLevels[currentSizeIndex].fontsize);
+    localStorage.setItem("letterSize", currentSizeIndex);
+    UpdateFontsizeChange(sizeLevels[currentSizeIndex].label);
+    currentSizeIndex++;
   }
 }
 
-// Inyectar el espaciado en la página (afectando todos los textos)
 function applyLetterSize(fontsize) {
   const styleTag = document.getElementById("letter-size-style");
   styleTag.innerHTML = `
-      body, p, span, a, li, div, h1, h2, h3, h4, h5, h6 {
-          font-size:  ${fontsize} !important; 
-      }
+    body *:not(#my-widget):not(#my-widget *), 
+    body:not(#my-widget) {
+      font-size: ${fontsize} !important;
+    }
   `;
 }
 
-// Eliminar el espaciado
+
 function removeFontsizeChange() {
   const styleTag = document.getElementById("letter-size-style");
   if (styleTag) {
-      styleTag.innerHTML = ""; // Limpia el contenido en lugar de eliminarlo
+    styleTag.innerHTML = "";
   }
 }
 
-// Actualizar el texto del botón
 function UpdateFontsizeChange(text) {
   if (sizeButton) {
-      sizeButton.textContent = text;
+    sizeButton.textContent = text;
   }
 }
 
-// Aplicar el estado guardado al recargar la página
 export function loadFontsizeSetting(buttonElement) {
-  sizeButton = buttonElement; // Guardar referencia al botón
+  sizeButton = buttonElement;
 
   const savedIndex = parseInt(localStorage.getItem("letterSize"), 10);
   if (!isNaN(savedIndex) && savedIndex >= 0 && savedIndex < sizeLevels.length) {
-      applyLetterSize(sizeLevels[savedIndex].size);
-      UpdateFontsizeChange(sizeLevels[savedIndex].label);
-      currentSizeIndex = savedIndex + 1;
+    applyLetterSize(sizeLevels[savedIndex].fontsize);
+    UpdateFontsizeChange(sizeLevels[savedIndex].label);
+    currentSizeIndex = savedIndex + 1;
   } else {
-      UpdateFontsizeChange("Aumentar letra");
+    UpdateFontsizeChange("Aumentar letra");
   }
 }

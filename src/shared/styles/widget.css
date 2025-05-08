@@ -6,6 +6,8 @@
 :root {
   --primaryColor: #1e67e7;
   --secondaryColor: #74c5f2;
+  --reverseColor: #5d04d8;
+  --textColor: #1B1F31;
 }
 
 * {
@@ -51,7 +53,7 @@ body {
   right: 10px;
   z-index: 16;
   width: 500px;
-  max-width: 100%;
+  max-width: calc(100% - 20px);
   height: calc(100% - 20px);
   border-radius: 20px;
   flex-direction: column;
@@ -98,29 +100,6 @@ body {
 .dark-mode button {
   background-color: #333;
   color: white;
-}
-
-/* Alto contraste */
-.high-contrast h1,
-.high-contrast h2,
-.high-contrast h3,
-.high-contrast h4,
-.high-contrast h5,
-.high-contrast h6 {
-  color: rgb(255, 0, 0);
-}
-
-.high-contrast div {
-  color: black;
-}
-
-.high-contrast p {
-  font-size: 1.2em;
-}
-
-.high-contrast button:hover {
-  background-color: white;
-  color: rgb(0, 0, 0);
 }
 
 /* Barra de lectura */

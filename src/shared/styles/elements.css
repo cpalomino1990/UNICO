@@ -24,7 +24,7 @@
   position: relative;
 }
 
-#accessibility-banner-user .accessibility-banner-user-top .accessibility-banner-user-top-image {
+.accessibility-banner-user-top-image {
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -39,9 +39,10 @@
   box-shadow: 4px 2px 16px 0px #5f9de77a;
   box-shadow: -4px -2px 16px 0px #ffffff;
   box-shadow: 0px 4px 4px 0px #00000040;
+  user-select: none;
 }
 
-#accessibility-banner-user .accessibility-banner-user-top .accessibility-banner-user-top-image-internal {
+.accessibility-banner-user-top-image-internal {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -57,11 +58,11 @@
   padding: 3px;
 }
 
-#accessibility-banner-user .accessibility-banner-user-top .accessibility-banner-user-top-image-internal svg {
+.accessibility-banner-user-top-image-internal svg {
   color: var(--primaryColor);
 }
 
-#accessibility-banner-user .accessibility-banner-user-top .accessibility-banner-user-top-image-internal img {
+.accessibility-banner-user-top-image-internal img {
   width: 100%;
   border-radius: 50%;
   object-fit: cover;
@@ -183,6 +184,7 @@
   --clouds: #ecf0f1;
 }
 
+/* ESTILOS PARA LAS CARDS DE LAS CAPACIDADES DIVERSAS */
 .accessibility-card-button {
   perspective: 500px;
   overflow: hidden;
@@ -333,8 +335,9 @@
   }
 }
 
-/* Estilops de profile card */
+/* ESTILOS PARA EL LA CARD DE PERFILES */
 .accessibility-profile-card {
+  border: none;
   background: #fff;
   width: 140px;
   height: 180px;
@@ -402,7 +405,7 @@
   height: 20px;
 }
 
-/* Estilos para el check */
+/* ESTILOS PARA EL CHECK */
 .accessibility-check {
   display: flex;
   justify-content: center;
@@ -440,7 +443,7 @@
   border-radius: 50%;
 }
 
-/* Estilos de title card */
+/* ESTILOS DE LA CARD DE TITULOS */
 .accessibility-title-card {
   display: flex;
   justify-content: space-between;
@@ -472,7 +475,9 @@
   font-weight: bold;
 }
 
+/* ESTILOS DE LOS BOTRONES DE FUNCIONALIDADES */
 .accessibility-funcionality-button {
+  border: none;
   background: #fff;
   width: 140px;
   height: 120px;
@@ -509,4 +514,89 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 5px;
+}
+
+/* ESTILOS DEL COMPONENTE COLLAPSE */
+.accessibility-collapse-container {
+  margin-bottom: 10px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.accessibility-collapse-container .accessibility-collapse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: color-mix(in srgb, var(--primaryColor) 30%, transparent);
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.accessibility-collapse-container .accessibility-collapse-header p {
+  margin: 0;
+}
+
+.accessibility-collapse-container .accessibility-collapse-content {
+  padding: 20px 0;
+}
+
+/* ESTILOS DE LOS INPUTS */
+.accessibility-input-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.accessibility-input-form-container input {
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--textColor) 30%, transparent);
+  padding: 20px;
+}
+
+.accessibility-input-form-container input:focus {
+  outline: none;
+  border-color: var(--primaryColor);
+}
+
+/* ESTILOS DE LOS SELECTS */
+.accessibility-select-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.accessibility-select-form-container select {
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--textColor) 30%, transparent);
+  padding: 20px;
+}
+
+.accessibility-select-form-container select:focus {
+  outline: none;
+  border-color: var(--primaryColor);
+}
+
+/* ESTILOS DEL COMPONENTE DE INPUT FILE */
+.accessibility-dropabble-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  border: 1px dashed color-mix(in srgb, var(--textColor) 30%, transparent);
+  padding: 20px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.accessibility-dropabble-container div {
+  text-align: center;
+}
+
+.accessibility-dropabble-container p {
+  margin: 0;
 }

@@ -1,4 +1,6 @@
 [data-theme="purple"] {
   --primaryColor: #5d04d8;
   --secondaryColor: #74c5f2;
+  --reverseColor: #1e67e7;
+  --textColor: #1B1F31;
 }

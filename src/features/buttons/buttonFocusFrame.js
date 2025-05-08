@@ -14,7 +14,7 @@ export function toggleFocusFrame() {
   }
   
   function applyFocusFrame(event) {
-    const tagsToHighlight = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+    const tagsToHighlight = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'SPAN', 'A', 'BUTTON', 'B'];
     if (tagsToHighlight.includes(event.target.tagName)) {
       event.target.classList.add("focus-highlight");
     }

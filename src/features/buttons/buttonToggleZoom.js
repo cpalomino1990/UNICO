@@ -60,14 +60,20 @@ const style = document.createElement("style");
 style.innerHTML = `
   #text-magnifier-tooltip {
     position: absolute;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 2em;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 1.8em;
+    font-weight: 500;
+    font-family: system-ui, sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     display: none;
     pointer-events: none;
     z-index: 1000;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(0);
   }
 `;
 document.head.appendChild(style);
+

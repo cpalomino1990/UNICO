@@ -61,7 +61,7 @@ export function cognitiveView() {
 
   profiles.append(
     createCardProfile({
-      id: "accessibility-btn-autism",
+      id: "accessibility-btn-autismo",
       title: "Autismo",
       description: "Lorem ipsum dolor sit amet...",
       onclick: () => ToggleActiveProfiles("accessibility-btn-autism", "Autismo"),

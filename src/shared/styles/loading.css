@@ -1,0 +1,58 @@
+.loader {
+    background-image: linear-gradient(rgb(186, 66, 255) 35%,rgb(0, 225, 255));
+    width: 150px;
+    height: 150px;
+    animation: spinning82341 1.7s linear infinite;
+    text-align: center;
+    border-radius: 50px;
+    filter: blur(1px);
+    box-shadow: 0px -5px 20px 0px rgb(186, 66, 255), 0px 5px 20px 0px rgb(0, 225, 255);
+    margin-bottom: 175px;
+
+  }
+  
+  .loader1 {
+    background-color: rgb(36, 36, 36);
+    width: 150px;
+    height: 150px;
+    border-radius: 50px;
+    filter: blur(10px);
+  }
+  
+  @keyframes spinning82341 {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+.loader2 {
+width: 48px;
+height: 48px;
+border-radius: 50%;
+display: inline-block;
+border-top: 4px solid #FFF;
+border-right: 4px solid transparent;
+box-sizing: border-box;
+animation: rotation 1s linear infinite;
+}
+.loader2::after {
+content: '';  
+box-sizing: border-box;
+position: absolute;
+left: 0;
+top: 0;
+width: 48px;
+height: 48px;
+border-radius: 50%;
+border-bottom: 4px solid #FF3D00;
+border-left: 4px solid transparent;
+}
+@keyframes rotation {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+} 

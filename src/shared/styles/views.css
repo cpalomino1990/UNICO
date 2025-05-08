@@ -16,8 +16,6 @@
   gap: 15px;
 }
 
-
-
 #accessibility-content-profiles {
   display: flex;
   flex-wrap: wrap;
@@ -33,9 +31,11 @@
 }
 #accessibility-visual-view,
 #accessibility-mental-view,
-#accessibilit-auditory-view,
+#accessibility-auditory-view,
 #accessibility-physical-view,
-#accessibility-cognitive-view{
+#accessibility-cognitive-view,
+#accessibility-user-login-view,
+#accessibility-user-register-view {
   padding: 10px;
   overflow: auto;
   height: calc(100% - 20px);
@@ -75,4 +75,173 @@
   gap: 10px 4px;
 }
 
+/* ESTILOS DE LA VISTA DE USUAIROS - LOGIN - REGISTER */
+.accessibility-user-view-content {
+  padding: 10px 20px;
+}
 
+.accessibility-user-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.accessibility-home-button {
+  color: var(--primaryColor);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accessibility-home-button svg {
+  width: 35px;
+  height: 35px;
+}
+
+.accessibility-user-view-header-left {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.accessibility-user-view-header-left p {
+  margin: 0;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--textColor);
+  user-select: none;
+}
+
+.accessibility-user-login-view-content-text .accessibility-title-card-text {
+  margin: 0;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 45px;
+  color: var(--textColor);
+  text-align: center;
+}
+
+.accessibility-user-login-view-content-text .accessibility-description-card-text {
+  margin: 0;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--textColor);
+  text-align: center;
+}
+
+.accessibility-user-login-view-content-form a {
+  text-align: right;
+  margin: 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.accessibility-user-login-view-content-footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.accessibility-user-login-view-content-footer p {
+  margin: 0;
+}
+
+.accessibility-user-login-view-content-footer p a {
+  margin: 0;
+  cursor: pointer;
+}
+
+.accessibility-user-login-view-content-footer-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.accessibility-icon-button {
+  background-color: var(--primaryColor);
+  border: none;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.accessibility-icon-button img {
+  width: 25px;
+  height: 25px;
+}
+
+/* ESTILOS DE LA VISTA DE REGISTRO DE USUARIOS */
+.accessibility-user-register-view-content {
+  margin-top: 20px;
+}
+
+.accessibility-user-button-edit-img {
+  display: block;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  color: var(--primaryColor);
+  user-select: none;
+}
+
+.accessibility-user-button-edit-img span {
+  color: var(--primaryColor);
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accessibility-button-theme {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 20px;
+  border: none;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--primaryColor) 80%, transparent) 0%,
+    var(--primaryColor) 100%
+  );
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.accessibility-button-theme:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ESTILOS DE LA VISTA DE AGREGAR IMAGEN */
+.accessibility-user-image-view-content-text {
+  text-align: center;
+}
+
+.accessibility-user-image-view-content-text h2{
+  font-size: 30px;
+}

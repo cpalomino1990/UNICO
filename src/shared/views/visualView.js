@@ -63,19 +63,19 @@ export function visualView() {
     createCardProfile({
       id: "accessibility-btn-visual",
       title: "Baja Visión",
-      description: "Lorem ipsum dolor sit amet...",
+      description: "Este perfil mejora la visibilidad del contenido para personas con visión reducida.",
       onclick: () => ToggleActiveProfiles("accessibility-btn-visual", "Baja Visión"),
     }),
     createCardProfile({
       id: "accessibility-btn-total-blindness",
       title: "Ceguera",
-      description: "Lorem ipsum dolor sit amet...",
+      description: "Este perfil permite escuchar el contenido mediante lectura por voz.",
       onclick: () => ToggleActiveProfiles("accessibility-btn-total-blindness", "Ceguera"),
     }),
     createCardProfile({
       id: "accessibility-btn-color-blindness",
       title: "Daltonismo",
-      description: "Lorem ipsum dolor sit amet...",
+      description: "Este perfil ofrece filtros de color adaptados a distintos tipos de daltonismola.",
       onclick: () => ToggleActiveProfiles("accessibility-btn-color-blindness", "Daltonismo"),
     })
   );
